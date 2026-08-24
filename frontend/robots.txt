@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rtc-proyecto6-api-rest.vercel.app/sitemap.xml
+
+# LLMs
+# See https://llmstxt.org/
+User-agent: GPTBot
+Allow: /llms.txt
+Allow: /api
+
+User-agent: ChatGPT-User
+Allow: /llms.txt
+Allow: /api
+
+User-agent: Claude-Web
+Allow: /llms.txt
+Allow: /api
+
+User-agent: Google-Extended
+Allow: /llms.txt
+Allow: /api

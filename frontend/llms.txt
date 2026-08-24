@@ -1,0 +1,88 @@
+# Taylor Swift Discography API REST
+
+> API REST completa sobre la discografía de Taylor Swift, construida con Node.js, Express y MongoDB Atlas. Incluye frontend web visual.
+
+## Información del Proyecto
+
+- Autora: Araceli Fradejas
+- Repositorio: https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST
+- Stack: Node.js 18+, Express 4, MongoDB Atlas, Mongoose, HTML5/CSS3/JS
+- Licencia: MIT
+
+## Modelos de Datos
+
+### Album
+Campos: title (String, required, unique), year (Number, required), coverImage (String), description (String), era (String), eraColor (String), totalTracks (Number), songs ([ObjectId] → Song), label (String).
+
+### Song
+Campos: title (String, required), author (String, required, default "Taylor Swift"), duration (String), trackNumber (Number), album (ObjectId → Album, required), isPopular (Boolean), lyrics (String), year (Number).
+
+Relación: Album.songs es un array de ObjectIds referenciando Song (1:N con populate).
+
+## Endpoints API
+
+### Albums — /api/albums
+- GET /api/albums — Listar todos los álbumes (acepta query params: title, year, era). Respuesta incluye populate de songs.
+- GET /api/albums/:id — Obtener un álbum por su ID con todas sus canciones.
+- POST /api/albums — Crear un álbum nuevo. Body JSON con campos del modelo Album.
+- PUT /api/albums/:id — Actualizar un álbum. El array "songs" se preserva automáticamente (no se borra al actualizar).
+- DELETE /api/albums/:id — Eliminar un álbum y todas sus canciones asociadas.
+- POST /api/albums/:id/songs/:songId — Añadir una canción al array del álbum. Usa $addToSet para evitar duplicados.
+- DELETE /api/albums/:id/songs/:songId — Quitar una canción del array del álbum.
+
+### Songs — /api/songs
+- GET /api/songs — Listar todas las canciones (acepta query params: title, author, year). Respuesta incluye populate de album.
+- GET /api/songs/:id — Obtener una canción por su ID.
+- POST /api/songs — Crear una canción nueva. Body JSON con campos del modelo Song. La canción se añade automáticamente al array del álbum.
+- PUT /api/songs/:id — Actualizar una canción.
+- DELETE /api/songs/:id — Eliminar una canción y su referencia del álbum.
+
+### Info
+- GET /api — Estado de la API y listado de endpoints disponibles.
+
+## Formato de Respuesta
+
+Todas las respuestas siguen este formato:
+```json
+{
+  "success": true|false,
+  "count": <number>,       // solo en listados
+  "data": <object|array>,  // en éxito
+  "error": "<message>",    // en error
+  "message": "<message>"   // en eliminaciones
+}
+```
+
+## Datos del Seed
+
+El seed (npm run seed) carga 10 álbumes de estudio de Taylor Swift con 5 canciones representativas cada uno (50 canciones en total):
+- Taylor Swift (2006) — Debut Era
+- Fearless (2008) — Fearless Era
+- Speak Now (2010) — Speak Now Era
+- Red (2012) — Red Era
+- 1989 (2014) — 1989 Era
+- Reputation (2017) — Reputation Era
+- Lover (2019) — Lover Era
+- Folklore (2020) — Folklore Era
+- Evermore (2020) — Evermore Era
+- Midnights (2022) — Midnights Era
+
+## Estructura del Proyecto
+
+```
+├── index.js                        — Entry point Express
+├── src/config/db.js                — Conexión MongoDB Atlas
+├── src/models/Album.js             — Modelo Album (Mongoose)
+├── src/models/Song.js              — Modelo Song (Mongoose)
+├── src/controllers/albumController.js — CRUD álbumes
+├── src/controllers/songController.js  — CRUD canciones
+├── src/routes/albumRoutes.js       — Rutas /api/albums
+├── src/routes/songRoutes.js        — Rutas /api/songs
+├── src/middleware/errorHandler.js   — Manejo global de errores
+├── src/seeds/seed.js               — Script de semilla
+├── frontend/index.html             — Frontend web SPA
+├── frontend/css/styles.css         — Estilos (tema oscuro, responsive)
+├── frontend/js/app.js              — Lógica del frontend
+├── vercel.json                     — Configuración de deploy en Vercel
+└── README.md                       — Documentación completa
+```

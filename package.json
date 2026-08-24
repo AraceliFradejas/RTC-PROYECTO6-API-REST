@@ -1,0 +1,23 @@
+{
+  "name": "rtc-proyecto6-api-rest",
+  "version": "1.0.0",
+  "description": "API REST sobre la discografía de Taylor Swift - Proyecto 6 The Power Education",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node src/seeds/seed.js"
+  },
+  "keywords": ["taylor swift", "api rest", "nodejs", "express", "mongodb", "mongoose"],
+  "author": "Araceli Fradejas",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
