@@ -6,7 +6,7 @@
   <title>Taylor Swift Discography — La Discografía Completa</title>
 
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Explora la discografía completa de Taylor Swift: álbumes, canciones, eras y más. Desde el debut country hasta Midnights." />
+  <meta name="description" content="Explora la discografía completa de Taylor Swift: álbumes, canciones, eras y más. Desde el debut country hasta The Life of a Showgirl." />
   <meta name="keywords" content="Taylor Swift, discografía, álbumes, canciones, Fearless, 1989, Folklore, Midnights, Reputation, Lover, Evermore, Speak Now, Red" />
   <meta name="author" content="Araceli Fradejas" />
   <meta name="robots" content="index, follow" />
@@ -58,10 +58,11 @@
         <span class="nav__logo-text">TS Discography</span>
       </a>
       <ul class="nav__links" role="menubar">
-        <li role="none"><a href="#eras" role="menuitem">Eras</a></li>
-        <li role="none"><a href="#search-section" role="menuitem">Buscar</a></li>
-        <li role="none"><a href="#about" role="menuitem">Sobre</a></li>
+        <li role="none"><a href="#search-section" role="menuitem" data-i18n="nav.search">Buscar</a></li>
+        <li role="none"><a href="#eras" role="menuitem" data-i18n="nav.eras">Eras</a></li>
+        <li role="none"><a href="#about" role="menuitem" data-i18n="nav.about">Sobre</a></li>
       </ul>
+      <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language">EN</button>
       <button class="nav__toggle" aria-label="Menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -70,15 +71,18 @@
 
   <!-- ═══ HERO ═══ -->
   <section class="hero" aria-label="Hero principal">
+    <div class="hero__carousel" aria-hidden="true">
+      <div class="hero__carousel-track" id="hero-carousel-track"></div>
+    </div>
     <div class="hero__particles" aria-hidden="true"></div>
     <div class="hero__content">
-      <p class="hero__subtitle">Explora la discografía completa de</p>
+      <p class="hero__subtitle" data-i18n="hero.subtitle">Explora la discografía completa de</p>
       <h1 class="hero__title">Taylor Swift</h1>
-      <p class="hero__tagline">10 eras • 10 álbumes • 50+ canciones icónicas</p>
-      <a href="#eras" class="hero__cta" aria-label="Ver las eras de Taylor Swift">Descubre las Eras ✨</a>
+      <p class="hero__tagline" data-i18n="hero.tagline">16 álbumes • 90+ canciones • una discografía que sigue creciendo</p>
+      <a href="#eras" class="hero__cta" aria-label="Ver las eras de Taylor Swift" data-i18n="hero.cta">Descubre las Eras ✨</a>
     </div>
     <div class="hero__scroll" aria-hidden="true">
-      <span>scroll</span>
+      <span data-i18n="hero.scroll">scroll</span>
       <div class="hero__scroll-line"></div>
     </div>
   </section>
@@ -89,9 +93,9 @@
     <!-- ═══ SEARCH ═══ -->
     <section id="search-section" class="search" aria-label="Buscador de canciones y álbumes">
       <div class="container">
-        <h2 class="section-title">Buscar <span class="accent">canciones</span></h2>
+        <h2 class="section-title"><span data-i18n="search.title">Buscar</span> <span class="accent" data-i18n="search.titleAccent">canciones</span></h2>
         <div class="search__bar">
-          <label for="search-input" class="sr-only">Buscar canciones por título, autor o año</label>
+          <label for="search-input" class="sr-only" data-i18n="search.label">Buscar canciones por título, autor o año</label>
           <input
             type="search"
             id="search-input"
@@ -104,7 +108,7 @@
             🔍
           </button>
         </div>
-        <p id="search-help" class="search__help">Prueba con "Love Story", "Jack Antonoff" o "2020"</p>
+        <p id="search-help" class="search__help" data-i18n="search.help">Prueba con "Love Story", "Jack Antonoff" o "2020"</p>
         <div id="search-results" class="search__results" role="region" aria-live="polite" aria-label="Resultados de búsqueda"></div>
       </div>
     </section>
@@ -112,8 +116,8 @@
     <!-- ═══ ERAS GRID ═══ -->
     <section id="eras" class="eras" aria-label="Galería de eras y álbumes">
       <div class="container">
-        <h2 class="section-title">Las <span class="accent">Eras</span></h2>
-        <p class="section-subtitle">Haz clic en un álbum para explorar sus canciones</p>
+        <h2 class="section-title"><span data-i18n="eras.title">Las</span> <span class="accent" data-i18n="eras.titleAccent">Eras</span></h2>
+        <p class="section-subtitle" data-i18n="eras.subtitle">Haz clic en un álbum para explorar sus canciones</p>
         <div id="albums-grid" class="eras__grid" role="list" aria-label="Lista de álbumes">
           <!-- Se rellena dinámicamente con JS -->
         </div>
@@ -136,7 +140,7 @@
           </div>
         </div>
         <div class="modal__songs">
-          <h3 class="modal__songs-title">🎶 Canciones</h3>
+          <h3 class="modal__songs-title" data-i18n="modal.songs">🎶 Canciones</h3>
           <ul id="modal-songs-list" class="modal__songs-list" role="list" aria-label="Lista de canciones del álbum"></ul>
         </div>
       </div>
@@ -145,32 +149,41 @@
     <!-- ═══ ABOUT ═══ -->
     <section id="about" class="about" aria-label="Sobre este proyecto">
       <div class="container">
-        <h2 class="section-title">Sobre este <span class="accent">proyecto</span></h2>
+        <h2 class="section-title"><span data-i18n="about.title">Sobre este</span> <span class="accent" data-i18n="about.titleAccent">proyecto</span></h2>
         <div class="about__content">
           <div class="about__card">
-            <h3>🛠️ Tech Stack</h3>
+            <h3 data-i18n="about.tech">🛠️ Tech Stack</h3>
             <ul>
-              <li><strong>Backend:</strong> Node.js + Express</li>
-              <li><strong>Base de datos:</strong> MongoDB Atlas + Mongoose</li>
-              <li><strong>Frontend:</strong> HTML5 + CSS3 + Vanilla JS</li>
-              <li><strong>Deploy:</strong> Vercel</li>
+              <li><strong data-i18n="about.backend">Backend:</strong> Node.js + Express</li>
+              <li><strong data-i18n="about.db">Base de datos:</strong> MongoDB Atlas + Mongoose</li>
+              <li><strong data-i18n="about.frontend">Frontend:</strong> HTML5 + CSS3 + Vanilla JS</li>
+              <li><strong data-i18n="about.deploy">Deploy:</strong> Vercel</li>
             </ul>
           </div>
           <div class="about__card">
-            <h3>📋 API Endpoints</h3>
+            <h3 data-i18n="about.api">📋 API Endpoints</h3>
             <ul>
-              <li><code>GET /api/albums</code> — Todos los álbumes</li>
-              <li><code>GET /api/songs</code> — Todas las canciones</li>
-              <li><code>GET /api/songs?title=love</code> — Buscar</li>
-              <li><code>POST /PUT /DELETE</code> — CRUD completo</li>
+              <li><code>GET /api/albums</code> — <span data-i18n="about.allAlbums">Todos los álbumes</span></li>
+              <li><code>GET /api/songs</code> — <span data-i18n="about.allSongs">Todas las canciones</span></li>
+              <li><code>GET /api/songs?title=love</code> — <span data-i18n="about.search">Buscar</span></li>
+              <li><code>POST /PUT /DELETE</code> — <span data-i18n="about.crud">CRUD completo</span></li>
             </ul>
           </div>
           <div class="about__card">
-            <h3>👩‍💻 Autora</h3>
-            <p>Proyecto realizado por <strong>Araceli Fradejas</strong> para The Power — Módulo 5 Backend.</p>
+            <h3 data-i18n="about.author">👩‍💻 Autora</h3>
+            <p data-i18n="about.authorText">Esta página es un ejercicio realizado por Araceli Fradejas Muñoz como entrega para el Proyecto 6: API REST, del módulo 5 Backend Node + Mongo del máster Rock The Code de The Power. Es una app interactiva desarrollada con Node.js, Express, MongoDB Atlas, Mongoose y frontend en HTML, CSS y Vanilla JavaScript. No es una aplicación oficial de Taylor Swift.</p>
             <a href="https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST" target="_blank" rel="noopener noreferrer" aria-label="Ir al repositorio de GitHub">
-              Ver en GitHub →
+              <span data-i18n="about.github">Ver en GitHub</span> →
             </a>
+            <p class="about__social-title" data-i18n="about.follow">Sígueme en / Follow me on:</p>
+            <div class="about__social-links" aria-label="Redes sociales de Araceli Fradejas">
+              <a href="https://www.instagram.com/goldilocks1013x/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://x.com/AraceliFradejas" target="_blank" rel="noopener noreferrer">X</a>
+              <a href="https://www.tiktok.com/@arucci1" target="_blank" rel="noopener noreferrer">TikTok</a>
+              <a href="https://www.youtube.com/@aracelifradejasmunoz2758" target="_blank" rel="noopener noreferrer">YouTube</a>
+              <a href="https://www.linkedin.com/in/araceli-fradejas-munoz-transformaciondigital/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://medium.com/@araceli.fradejas" target="_blank" rel="noopener noreferrer">Medium</a>
+            </div>
           </div>
         </div>
       </div>
@@ -180,7 +193,10 @@
   <!-- ═══ FOOTER ═══ -->
   <footer class="footer" role="contentinfo">
     <div class="container">
-      <p>&copy; 2024 Taylor Swift Discography API — Proyecto 6 <a href="https://thepower.education" target="_blank" rel="noopener noreferrer">The Power Education</a></p>
+      <p>
+        <span data-i18n="footer.text">&copy; 2026 Taylor Swift Discography API — Proyecto 6 del Máster. Este proyecto es una práctica educativa y personal inspirada en la discografía de Taylor Swift. Como Swiftie, me ha encantado hacer esta entrega de mi máster. No está afiliado ni oficializado por Taylor Swift ni por su discografía oficial.</span>
+        <a href="https://thepower.education/thepowermba/tech" target="_blank" rel="noopener noreferrer">The Power Tech School</a>
+      </p>
     </div>
   </footer>
 

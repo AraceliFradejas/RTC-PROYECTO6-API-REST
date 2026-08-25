@@ -3,6 +3,116 @@
    ═══════════════════════════════════════════════════════ */
 
 const API_URL = window.location.origin + '/api';
+const translations = {
+  es: {
+    'nav.eras': 'Eras',
+    'nav.search': 'Buscar',
+    'nav.about': 'Sobre',
+    'hero.subtitle': 'Explora la discografía completa de',
+    'hero.tagline': '16 álbumes • 90+ canciones • una discografía que sigue creciendo',
+    'hero.cta': 'Descubre las Eras ✨',
+    'hero.scroll': 'scroll',
+    'search.title': 'Buscar',
+    'search.titleAccent': 'canciones',
+    'search.label': 'Buscar canciones por título, autor o año',
+    'search.help': 'Prueba con "Love Story", "Jack Antonoff" o "2020"',
+    'eras.title': 'Las',
+    'eras.titleAccent': 'Eras',
+    'eras.subtitle': 'Haz clic en un álbum para explorar sus canciones',
+    'modal.songs': '🎶 Canciones',
+    'about.title': 'Sobre este',
+    'about.titleAccent': 'proyecto',
+    'about.tech': '🛠️ Tech Stack',
+    'about.backend': 'Backend:',
+    'about.db': 'Base de datos:',
+    'about.frontend': 'Frontend:',
+    'about.deploy': 'Deploy:',
+    'about.api': '📋 API Endpoints',
+    'about.allAlbums': 'Todos los álbumes',
+    'about.allSongs': 'Todas las canciones',
+    'about.search': 'Buscar',
+    'about.crud': 'CRUD completo',
+    'about.author': '👩‍💻 Autora',
+    'about.authorText': 'Esta página es un ejercicio realizado por Araceli Fradejas Muñoz como entrega para el Proyecto 6: API REST, del módulo 5 Backend Node + Mongo del máster Rock The Code de The Power. Es una app interactiva desarrollada con Node.js, Express, MongoDB Atlas, Mongoose y frontend en HTML, CSS y Vanilla JavaScript. No es una aplicación oficial de Taylor Swift.',
+    'about.github': 'Ver en GitHub',
+    'about.follow': 'Sígueme en / Follow me on:',
+    'footer.text': '© 2026 Taylor Swift Discography API — Proyecto 6 del Máster. Este proyecto es una práctica educativa y personal inspirada en la discografía de Taylor Swift. Como Swiftie, me ha encantado hacer esta entrega de mi máster. No está afiliado ni oficializado por Taylor Swift ni por su discografía oficial.',
+    'song.popular': '★ Popular',
+    'song.noResults': 'No se encontraron resultados 🎵',
+    'song.loading': 'Cargando...',
+    'song.openSpotify': 'Spotify',
+    'song.openApple': 'Apple Music',
+    'song.label': 'Sello:',
+    'search.empty': 'No se encontraron resultados 🎵',
+    'album.none': 'No se encontraron álbumes. Ejecuta npm run seed para cargar datos.',
+    'album.error': '⚠️ Error conectando con la API. Asegúrate de que el servidor está corriendo.',
+    'song.error': '⚠️ Error al buscar. Asegúrate de que el servidor está corriendo.',
+    'songs.empty': 'Sin canciones cargadas',
+    'album.meta': 'canciones',
+    'search.didYouMean': '¿Quisiste decir',
+    'search.resultsFor': 'Resultados para',
+    'search.bySong': 'canción',
+    'search.byAlbum': 'álbum',
+    'search.byAuthor': 'autor',
+    'search.funCloseOptions': 'Casi era esta era... ✨|Close enough para la Eras Tour 💫|Eso estuvo muy folklore, casi casi 🌲|Este puente casi nos lleva al tema correcto 🎶',
+    'search.funOopsOptions': 'Swiftie detector activado: creo que querías decir|Lo canto bajito: probablemente buscabas|Este easter egg apunta a|No está mal escrito... está en versión Taylor\'s, quizá era'
+  },
+  en: {
+    'nav.eras': 'Eras',
+    'nav.search': 'Search',
+    'nav.about': 'About',
+    'hero.subtitle': 'Explore the complete discography of',
+    'hero.tagline': '16 albums • 90+ songs • a discography that keeps growing',
+    'hero.cta': 'Discover the Eras ✨',
+    'hero.scroll': 'scroll',
+    'search.title': 'Search',
+    'search.titleAccent': 'songs',
+    'search.label': 'Search songs by title, artist, or year',
+    'search.help': 'Try "Love Story", "Jack Antonoff" or "2020"',
+    'eras.title': 'The',
+    'eras.titleAccent': 'Eras',
+    'eras.subtitle': 'Click an album to explore its songs',
+    'modal.songs': '🎶 Songs',
+    'about.title': 'About this',
+    'about.titleAccent': 'project',
+    'about.tech': '🛠️ Tech Stack',
+    'about.backend': 'Backend:',
+    'about.db': 'Database:',
+    'about.frontend': 'Frontend:',
+    'about.deploy': 'Deploy:',
+    'about.api': '📋 API Endpoints',
+    'about.allAlbums': 'All albums',
+    'about.allSongs': 'All songs',
+    'about.search': 'Search',
+    'about.crud': 'Complete CRUD',
+    'about.author': '👩‍💻 Author',
+    'about.authorText': 'This page is an exercise made by Araceli Fradejas Muñoz as the delivery for Project 6: REST API, from module 5 Backend Node + Mongo in the Rock The Code master by The Power. It is an interactive app built with Node.js, Express, MongoDB Atlas, Mongoose, and a frontend in HTML, CSS, and Vanilla JavaScript. It is not an official Taylor Swift application.',
+    'about.github': 'View on GitHub',
+    'about.follow': 'Follow me on:',
+    'footer.text': '© 2026 Taylor Swift Discography API — Master Project 6. This is an educational and personal project inspired by Taylor Swift’s discography. As a Swiftie, I loved creating this final deliverable for my master’s. It is not affiliated with or endorsed by Taylor Swift or her official discography.',
+    'song.popular': '★ Popular',
+    'song.noResults': 'No results found 🎵',
+    'song.loading': 'Loading...',
+    'song.openSpotify': 'Spotify',
+    'song.openApple': 'Apple Music',
+    'song.label': 'Label:',
+    'search.empty': 'No results found 🎵',
+    'album.none': 'No albums found. Run npm run seed to load data.',
+    'album.error': '⚠️ Could not connect to the API. Make sure the server is running.',
+    'song.error': '⚠️ Search failed. Make sure the server is running.',
+    'songs.empty': 'No songs loaded',
+    'album.meta': 'songs',
+    'search.didYouMean': 'Did you mean',
+    'search.resultsFor': 'Results for',
+    'search.bySong': 'song',
+    'search.byAlbum': 'album',
+    'search.byAuthor': 'author',
+    'search.funCloseOptions': 'Very close to the right era... ✨|That was almost a perfect bridge 💫|You are one typo away from the right track 🎶|Swiftie radar says: almost there 🌟',
+    'search.funOopsOptions': 'Swiftie radar says you probably meant|Tiny typo, big reputation: maybe it is|Easter egg mode on: try|I can read your mind... maybe you meant'
+  }
+};
+
+let currentLanguage = localStorage.getItem('tsLang') || 'es';
 
 // ── DOM Elements ────────────────────────────────────────
 const albumsGrid = document.getElementById('albums-grid');
@@ -21,16 +131,48 @@ const modalLabel = document.getElementById('modal-label');
 const modalSongsList = document.getElementById('modal-songs-list');
 const navToggle = document.querySelector('.nav__toggle');
 const navLinks = document.querySelector('.nav__links');
+const langToggle = document.getElementById('lang-toggle');
+const heroCarouselTrack = document.getElementById('hero-carousel-track');
 
 // ── State ────────────────────────────────────────────────
 let albumsCache = [];
 let searchTimeout = null;
+const coverCache = new Map();
+let songsIndexCache = [];
 
 // ═══ INIT ═══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  applyLanguage();
   loadAlbums();
   setupEventListeners();
 });
+
+function applyLanguage() {
+  const textMap = translations[currentLanguage];
+  document.documentElement.lang = currentLanguage;
+
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    const key = node.dataset.i18n;
+    if (textMap[key]) {
+      node.textContent = textMap[key];
+    }
+  });
+
+  if (langToggle) {
+    langToggle.textContent = currentLanguage === 'es' ? 'EN' : 'ES';
+    langToggle.setAttribute('aria-label', currentLanguage === 'es' ? 'Switch to English' : 'Cambiar a español');
+  }
+
+  const searchPlaceholder = currentLanguage === 'es' ? 'Busca por título, autor o año...' : 'Search by title, artist or year...';
+  if (searchInput) searchInput.placeholder = searchPlaceholder;
+}
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+  localStorage.setItem('tsLang', currentLanguage);
+  applyLanguage();
+}
 
 // ═══ EVENT LISTENERS ════════════════════════════════════
 function setupEventListeners() {
@@ -64,6 +206,266 @@ function setupEventListeners() {
       navToggle.setAttribute('aria-expanded', 'false');
     });
   });
+
+  langToggle.addEventListener('click', toggleLanguage);
+
+  searchResults.addEventListener('click', (event) => {
+    const suggestionButton = event.target.closest('[data-suggestion-query]');
+    if (!suggestionButton) return;
+
+    const suggestedQuery = suggestionButton.getAttribute('data-suggestion-query');
+    if (!suggestedQuery) return;
+
+    searchInput.value = suggestedQuery;
+    performSearch();
+  });
+}
+
+function getLabel(key) {
+  return translations[currentLanguage][key] || key;
+}
+
+function getRandomMessage(key) {
+  const value = getLabel(key);
+  if (!value || typeof value !== 'string') return '';
+  const options = value.split('|').map((part) => part.trim()).filter(Boolean);
+  if (options.length === 0) return '';
+  return options[Math.floor(Math.random() * options.length)];
+}
+
+function getSongLinks(song) {
+  const spotifyUrl = song.spotifyUrl || `https://open.spotify.com/search/${encodeURIComponent(`${song.title} Taylor Swift ${song.album ? song.album.title : ''}`)}`;
+  const appleUrl = song.appleMusicUrl || `https://music.apple.com/us/search?term=${encodeURIComponent(`${song.title} Taylor Swift ${song.album ? song.album.title : ''}`)}`;
+  return { spotifyUrl, appleUrl };
+}
+
+function normalizeText(text = '') {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizeForSearch(text = '') {
+  return normalizeText(text).replace(/\s+/g, '');
+}
+
+function levenshteinDistance(a = '', b = '') {
+  const rows = a.length + 1;
+  const cols = b.length + 1;
+  const dp = Array.from({ length: rows }, () => Array(cols).fill(0));
+
+  for (let i = 0; i < rows; i += 1) dp[i][0] = i;
+  for (let j = 0; j < cols; j += 1) dp[0][j] = j;
+
+  for (let i = 1; i < rows; i += 1) {
+    for (let j = 1; j < cols; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return dp[a.length][b.length];
+}
+
+async function getSongsIndex() {
+  if (songsIndexCache.length > 0) return songsIndexCache;
+
+  const res = await fetch(`${API_URL}/songs`);
+  const json = await res.json();
+  songsIndexCache = Array.isArray(json.data) ? json.data : [];
+  return songsIndexCache;
+}
+
+function getSearchHelp(query, songs) {
+  const q = normalizeForSearch(query);
+  if (!q || q.length < 2 || !Array.isArray(songs) || songs.length === 0) {
+    return { matches: [], suggestion: null, suggestionType: null, playful: null };
+  }
+
+  const titleMatches = songs.filter((song) => {
+    const title = normalizeForSearch(song.title || '');
+    return title.includes(q) || q.includes(title);
+  });
+
+  const albumMatches = songs.filter((song) => {
+    const albumTitle = normalizeForSearch(song.album?.title || '');
+    return albumTitle.includes(q) || q.includes(albumTitle);
+  });
+
+  const authorMatches = songs.filter((song) => {
+    const author = normalizeForSearch(song.author || '');
+    return author.includes(q) || q.includes(author);
+  });
+
+  const dedupeSongs = (list) => {
+    const seen = new Set();
+    return list.filter((song) => {
+      if (!song?._id || seen.has(song._id)) return false;
+      seen.add(song._id);
+      return true;
+    });
+  };
+
+  const buildCloseHelp = (matches, type, canonicalValue) => {
+    const isSame = normalizeForSearch(canonicalValue) === q;
+    return {
+      matches: dedupeSongs(matches).slice(0, 25),
+      suggestion: isSame ? null : canonicalValue,
+      suggestionType: isSame ? null : type,
+      playful: isSame ? null : getRandomMessage('search.funCloseOptions')
+    };
+  };
+
+  if (titleMatches.length > 0) {
+    return buildCloseHelp(titleMatches, 'song', titleMatches[0].title || '');
+  }
+
+  if (albumMatches.length > 0) {
+    return buildCloseHelp(albumMatches, 'album', albumMatches[0].album?.title || '');
+  }
+
+  if (authorMatches.length > 0) {
+    return buildCloseHelp(authorMatches, 'author', authorMatches[0].author || '');
+  }
+
+  const uniqueTerms = {
+    song: [...new Set(songs.map((song) => song.title).filter(Boolean))],
+    album: [...new Set(songs.map((song) => song.album?.title).filter(Boolean))],
+    author: [...new Set(songs.map((song) => song.author).filter(Boolean))]
+  };
+
+  const findBestCandidate = (terms, type) => {
+    let best = null;
+    for (const term of terms) {
+      const normalized = normalizeForSearch(term);
+      if (!normalized) continue;
+
+      const distance = levenshteinDistance(q, normalized);
+      const ratio = distance / Math.max(normalized.length, q.length, 1);
+
+      if (!best || ratio < best.ratio) {
+        best = { type, term, ratio };
+      }
+    }
+    return best;
+  };
+
+  const candidates = [
+    findBestCandidate(uniqueTerms.song, 'song'),
+    findBestCandidate(uniqueTerms.album, 'album'),
+    findBestCandidate(uniqueTerms.author, 'author')
+  ].filter(Boolean);
+
+  const bestCandidate = candidates.sort((a, b) => a.ratio - b.ratio)[0];
+
+  if (!bestCandidate || bestCandidate.ratio > 0.34) {
+    return { matches: [], suggestion: null, suggestionType: null, playful: null };
+  }
+
+  const matchesByType =
+    bestCandidate.type === 'song'
+      ? songs.filter((song) => song.title === bestCandidate.term)
+      : bestCandidate.type === 'album'
+        ? songs.filter((song) => song.album?.title === bestCandidate.term)
+        : songs.filter((song) => song.author === bestCandidate.term);
+
+  return {
+    matches: dedupeSongs(matchesByType).slice(0, 25),
+    suggestion: bestCandidate.term,
+    suggestionType: bestCandidate.type,
+    playful: getRandomMessage('search.funOopsOptions')
+  };
+}
+
+function looksGeneratedCover(url = '') {
+  return typeof url === 'string' && url.startsWith('data:image/svg+xml');
+}
+
+async function resolveRealAlbumCover(album) {
+  if (!album || !album.title) return '';
+
+  if (coverCache.has(album.title)) {
+    return coverCache.get(album.title);
+  }
+
+  if (album.coverImage && !looksGeneratedCover(album.coverImage)) {
+    coverCache.set(album.title, album.coverImage);
+    return album.coverImage;
+  }
+
+  try {
+    const query = encodeURIComponent(`Taylor Swift ${album.title}`);
+    const res = await fetch(`https://itunes.apple.com/search?term=${query}&entity=album&limit=10`);
+    const json = await res.json();
+    const results = Array.isArray(json.results) ? json.results : [];
+
+    const wanted = normalizeText(album.title);
+    const best =
+      results.find((item) => normalizeText(item.collectionName || '') === wanted) ||
+      results.find((item) => normalizeText(item.collectionName || '').includes(wanted)) ||
+      results[0];
+
+    if (best && best.artworkUrl100) {
+      const hiRes = best.artworkUrl100.replace('100x100bb', '1200x1200bb');
+      coverCache.set(album.title, hiRes);
+      return hiRes;
+    }
+  } catch (error) {
+    console.warn('No se pudo resolver portada real para', album.title, error);
+  }
+
+  const fallback = album.coverImage || '';
+  coverCache.set(album.title, fallback);
+  return fallback;
+}
+
+async function hydrateAlbumCovers(albums) {
+  const tasks = albums.map(async (album) => {
+    const img = document.querySelector(`.album-card__cover[data-album-id="${album._id}"]`);
+    if (!img) return;
+
+    const resolved = await resolveRealAlbumCover(album);
+    if (resolved) {
+      img.src = resolved;
+    }
+  });
+
+  await Promise.allSettled(tasks);
+}
+
+async function renderHeroCarousel(albums) {
+  if (!heroCarouselTrack || !Array.isArray(albums) || albums.length === 0) return;
+
+  const orderedAlbums = [...albums].sort((a, b) => (a.year || 0) - (b.year || 0));
+  const withCovers = await Promise.all(
+    orderedAlbums.map(async (album) => {
+      const cover = await resolveRealAlbumCover(album);
+      return {
+        ...album,
+        resolvedCover: cover || album.coverImage || ''
+      };
+    })
+  );
+
+  const carouselItems = withCovers
+    .map(
+      (album) => `
+        <figure class="hero__carousel-item">
+          <img src="${album.resolvedCover}" alt="Portada ${album.title}" loading="lazy" />
+        </figure>
+      `
+    )
+    .join('');
+
+  heroCarouselTrack.innerHTML = `${carouselItems}${carouselItems}`;
 }
 
 // ═══ ALBUMS ═════════════════════════════════════════════
@@ -80,6 +482,7 @@ async function loadAlbums() {
     if (json.success && json.data.length > 0) {
       albumsCache = json.data;
       renderAlbums(json.data);
+      renderHeroCarousel(json.data);
     } else {
       albumsGrid.innerHTML = `
         <p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:3rem;">
@@ -98,8 +501,10 @@ async function loadAlbums() {
 function renderAlbums(albums) {
   albumsGrid.innerHTML = albums
     .map(
-      (album, i) => `
-    <article class="album-card" role="listitem" tabindex="0"
+      (album, i) => {
+        const isShowgirl = normalizeText(album.title || '') === normalizeText('The Life of a Showgirl');
+        return `
+    <article class="album-card ${isShowgirl ? 'album-card--showgirl' : ''}" role="listitem" tabindex="0"
              data-id="${album._id}"
              style="--era-color: ${album.eraColor || '#d4a0c8'}"
              aria-label="Álbum ${album.title}, ${album.year}"
@@ -107,6 +512,7 @@ function renderAlbums(albums) {
              onkeydown="if(event.key==='Enter') openAlbum('${album._id}')">
       <div class="album-card__cover-wrapper">
         <img class="album-card__cover"
+             data-album-id="${album._id}"
              src="${album.coverImage}"
              alt="Portada del álbum ${album.title}"
              loading="${i < 4 ? 'eager' : 'lazy'}"
@@ -120,13 +526,16 @@ function renderAlbums(albums) {
         <h3 class="album-card__title">${album.title}</h3>
         <div class="album-card__meta">
           <span>${album.year}</span>
-          <span>${album.songs ? album.songs.length : 0} canciones</span>
+          <span>${album.songs ? album.songs.length : 0} ${getLabel('album.meta')}</span>
         </div>
       </div>
     </article>
-  `
+  `;
+      }
     )
     .join('');
+
+  hydrateAlbumCovers(albums);
 }
 
 // ═══ ALBUM DETAIL ═══════════════════════════════════════
@@ -140,32 +549,41 @@ async function openAlbum(id) {
     const album = json.data;
 
     modalCover.src = album.coverImage;
+    const realCover = await resolveRealAlbumCover(album);
+    if (realCover) {
+      modalCover.src = realCover;
+    }
     modalCover.alt = `Portada de ${album.title}`;
     modalTitle.textContent = album.title;
     modalEra.textContent = album.era || '';
     modalEra.style.color = album.eraColor || '#d4a0c8';
     modalYear.textContent = album.year;
     modalDesc.textContent = album.description || '';
-    modalLabel.textContent = album.label ? `Sello: ${album.label}` : '';
+    modalLabel.textContent = album.label ? `${getLabel('song.label')} ${album.label}` : '';
 
     if (album.songs && album.songs.length > 0) {
       modalSongsList.innerHTML = album.songs
-        .map(
-          (song, i) => `
-        <li class="modal__song" role="listitem">
-          <span class="modal__song-number">${song.trackNumber || i + 1}</span>
-          <div class="modal__song-info">
-            <p class="modal__song-title">${song.title}</p>
-            <p class="modal__song-author">${song.author || 'Taylor Swift'}</p>
-          </div>
-          ${song.isPopular ? '<span class="modal__song-badge">★ Popular</span>' : ''}
-          <span class="modal__song-duration">${song.duration || ''}</span>
-        </li>
-      `
-        )
+        .map((song, i) => {
+          const songLinks = getSongLinks(song);
+          return `
+            <li class="modal__song" role="listitem">
+              <span class="modal__song-number">${song.trackNumber || i + 1}</span>
+              <div class="modal__song-info">
+                <p class="modal__song-title">${song.title}</p>
+                <p class="modal__song-author">${song.author || 'Taylor Swift'}</p>
+              </div>
+              ${song.isPopular ? `<span class="modal__song-badge">${getLabel('song.popular')}</span>` : ''}
+              <div class="modal__song-actions">
+                <a class="modal__song-link" href="${songLinks.spotifyUrl}" target="_blank" rel="noopener noreferrer">${getLabel('song.openSpotify')}</a>
+                <a class="modal__song-link apple" href="${songLinks.appleUrl}" target="_blank" rel="noopener noreferrer">${getLabel('song.openApple')}</a>
+              </div>
+              <span class="modal__song-duration">${song.duration || ''}</span>
+            </li>
+          `;
+        })
         .join('');
     } else {
-      modalSongsList.innerHTML = '<li class="modal__song" style="color:var(--text-muted); justify-content:center;">Sin canciones cargadas</li>';
+      modalSongsList.innerHTML = `<li class="modal__song" style="color:var(--text-muted); justify-content:center;">${getLabel('songs.empty')}</li>`;
     }
 
     // Color accent from era
@@ -237,39 +655,73 @@ async function performSearch() {
       });
     }
 
-    renderSearchResults(allSongs);
+    if (allSongs.length > 0) {
+      renderSearchResults(allSongs, null, query);
+      return;
+    }
+
+    const songsIndex = await getSongsIndex();
+    const help = getSearchHelp(query, songsIndex);
+    renderSearchResults(help.matches, help, query);
   } catch (err) {
     console.error('Error buscando:', err);
-    searchResults.innerHTML = '<p class="search__no-results">⚠️ Error al buscar. Asegúrate de que el servidor está corriendo.</p>';
+    searchResults.innerHTML = `<p class="search__no-results">${getLabel('song.error')}</p>`;
   }
 }
 
-function renderSearchResults(songs) {
+function renderSearchResults(songs, help = null, originalQuery = '') {
+  const suggestion = help?.suggestion;
+  const suggestionType = help?.suggestionType;
+  const playful = help?.playful;
+
+  const typeLabel =
+    suggestionType === 'song'
+      ? getLabel('search.bySong')
+      : suggestionType === 'album'
+        ? getLabel('search.byAlbum')
+        : suggestionType === 'author'
+          ? getLabel('search.byAuthor')
+          : '';
+
+  const playfulText = playful ? `<p class="search__suggestion-note">${playful}</p>` : '';
+  const suggestionBlock = suggestion
+    ? `${playfulText}<div class="search__suggestion">${getLabel('search.didYouMean')} <button class="search__suggestion-btn" type="button" data-suggestion-query="${suggestion}">${suggestion}</button>${typeLabel ? ` (${typeLabel})` : ''}?</div>`
+    : '';
+
   if (songs.length === 0) {
-    searchResults.innerHTML = '<p class="search__no-results">No se encontraron resultados 🎵</p>';
+    searchResults.innerHTML = `${suggestionBlock}<p class="search__no-results">${getLabel('search.empty')}</p>`;
     return;
   }
 
-  searchResults.innerHTML = songs
-    .map(
-      (song, i) => `
-    <div class="search-result-card" tabindex="0"
-         ${song.album && song.album._id ? `onclick="openAlbum('${song.album._id}')" onkeydown="if(event.key==='Enter') openAlbum('${song.album._id}')"` : ''}
-         role="button"
-         aria-label="Canción ${song.title} del álbum ${song.album ? song.album.title : 'desconocido'}">
-      <span class="search-result-card__number">${i + 1}</span>
-      <div class="search-result-card__info">
-        <p class="search-result-card__title">${song.title}</p>
-        <p class="search-result-card__meta">
-          ${song.author || 'Taylor Swift'}
-          ${song.album ? ` · <strong>${song.album.title}</strong> (${song.album.year || ''})` : ''}
-        </p>
-      </div>
-      ${song.isPopular ? '<span class="search-result-card__popular">★ Popular</span>' : ''}
-      <span class="search-result-card__duration">${song.duration || ''}</span>
-    </div>
-  `
-    )
+  const resultsHeading = originalQuery
+    ? `<p class="search__results-heading">${getLabel('search.resultsFor')} "${originalQuery}"</p>`
+    : '';
+
+  searchResults.innerHTML = `${resultsHeading}${suggestionBlock}` + songs
+    .map((song, i) => {
+      const songLinks = getSongLinks(song);
+      return `
+        <div class="search-result-card" tabindex="0"
+             ${song.album && song.album._id ? `onclick="openAlbum('${song.album._id}')" onkeydown="if(event.key==='Enter') openAlbum('${song.album._id}')"` : ''}
+             role="button"
+             aria-label="Canción ${song.title} del álbum ${song.album ? song.album.title : 'desconocido'}">
+          <span class="search-result-card__number">${i + 1}</span>
+          <div class="search-result-card__info">
+            <p class="search-result-card__title">${song.title}</p>
+            <p class="search-result-card__meta">
+              ${song.author || 'Taylor Swift'}
+              ${song.album ? ` · <strong>${song.album.title}</strong> (${song.album.year || ''})` : ''}
+            </p>
+          </div>
+          ${song.isPopular ? `<span class="search-result-card__popular">${getLabel('song.popular')}</span>` : ''}
+          <div class="search-result-card__actions">
+            <a href="${songLinks.spotifyUrl}" target="_blank" rel="noopener noreferrer" class="search-result-card__link">${getLabel('song.openSpotify')}</a>
+            <a href="${songLinks.appleUrl}" target="_blank" rel="noopener noreferrer" class="search-result-card__link apple">${getLabel('song.openApple')}</a>
+          </div>
+          <span class="search-result-card__duration">${song.duration || ''}</span>
+        </div>
+      `;
+    })
     .join('');
 }
 
