@@ -168,7 +168,7 @@ Node.js · Express · MongoDB Atlas · Mongoose · HTML5 · CSS3 · JavaScript �
 
 ### Autora
 
-Araceli Fradejas Muñoz — [GitHub](https://github.com/AraceliFradejas)
+Araceli Fradejas Muñoz
 
 Proyecto realizado para The Power Tech School, máster Rock The Code.
 
@@ -254,6 +254,20 @@ Node.js · Express · MongoDB Atlas · Mongoose · HTML5 · CSS3 · JavaScript �
 
 ### Author
 
-Araceli Fradejas Muñoz — [GitHub](https://github.com/AraceliFradejas)
+Araceli Fradejas Muñoz
 
 Academic project for The Power Tech School's Rock The Code program.
+
+### Social links and profiles
+
+- GitHub: <https://github.com/AraceliFradejas>
+- LinkedIn: <https://www.linkedin.com/in/araceli-fradejas-munoz-transformaciondigital/>
+- Instagram: <https://www.instagram.com/goldilocks1013x/>
+- X (Twitter): <https://x.com/AraceliFradejas>
+- TikTok: <https://www.tiktok.com/@arucci1>
+- YouTube: <https://www.youtube.com/@aracelifradejasmunoz2758>
+- Medium: <https://medium.com/@araceli.fradejas>
+
+### Final note
+
+This project is an academic submission created for educational purposes as part of The Power Tech's Rock The Code master's program. It does not represent any official Taylor Swift application and was developed exclusively as an educational project.
