@@ -172,6 +172,20 @@ Araceli Fradejas Muñoz — [GitHub](https://github.com/AraceliFradejas)
 
 Proyecto realizado para The Power Tech School, máster Rock The Code.
 
+### Redes sociales y enlaces
+
+- GitHub: <https://github.com/AraceliFradejas>
+- LinkedIn: <https://www.linkedin.com/in/araceli-fradejas-munoz-transformaciondigital/>
+- Instagram: <https://www.instagram.com/goldilocks1013x/>
+- X (Twitter): <https://x.com/AraceliFradejas>
+- TikTok: <https://www.tiktok.com/@arucci1>
+- YouTube: <https://www.youtube.com/@aracelifradejasmunoz2758>
+- Medium: <https://medium.com/@araceli.fradejas>
+
+### Nota final
+
+Este proyecto es una entrega académica desarrollada con fines de formación dentro del máster Rock The Code de The Power Tech y no representa ninguna aplicación oficial de Taylor Swift. Es una aplicación creada exclusivamente con fines educativos.
+
 ---
 
 ## English version
