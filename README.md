@@ -9,7 +9,7 @@
 
 ## 📋 Descripción
 
-Proyecto 6 del módulo Backend de **The Power Education**. Una API REST que permite gestionar la discografía de Taylor Swift, con 10 álbumes de estudio y más de 50 canciones. Incluye un frontend web visual con búsqueda en tiempo real.
+Proyecto 6 del módulo Backend de **The Power Education**. Una API REST que permite gestionar la discografía de Taylor Swift con la línea oficial de lanzamientos, incluidas las regrabaciones y los álbumes más recientes. Incluye un frontend web visual con búsqueda en tiempo real.
 
 ## 🛠️ Tech Stack
 
@@ -58,7 +58,7 @@ MONGO_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/taylorswift
 npm run seed
 ```
 
-Esto cargará **10 álbumes** y **50 canciones** de Taylor Swift.
+Esto cargará la base de la discografía oficial de Taylor Swift en el proyecto, con los lanzamientos más representativos y sus regrabaciones principales.
 
 ### 5. Iniciar el servidor
 
@@ -166,7 +166,7 @@ El servidor estará disponible en `http://localhost:3000`
 | Servidor con Express | ✅ | `index.js` |
 | Conexión Mongo Atlas + Mongoose | ✅ | `src/config/db.js` |
 | 2 modelos | ✅ | `Album` y `Song` |
-| Semilla de datos | ✅ | `npm run seed` (10 álbumes, 50 canciones) |
+| Semilla de datos | ✅ | `npm run seed` con la discografía oficial y las regrabaciones principales |
 | Relación entre colecciones | ✅ | `Album.songs = [ObjectId]` → populate |
 | CRUD completo (ambas) | ✅ | GET, POST, PUT, DELETE |
 | README con endpoints | ✅ | Este archivo |
