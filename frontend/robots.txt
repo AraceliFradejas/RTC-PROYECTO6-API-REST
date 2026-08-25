@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rtc-proyecto6-api-rest.vercel.app/sitemap.xml
+Sitemap: https://ret-proyecto6-api-rest.vercel.app/sitemap.xml
 
 # LLMs
 # See https://llmstxt.org/

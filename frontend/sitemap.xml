@@ -6,7 +6,7 @@
 
   <!-- Página principal -->
   <url>
-    <loc>https://rtc-proyecto6-api-rest.vercel.app/</loc>
+    <loc>https://ret-proyecto6-api-rest.vercel.app/</loc>
     <lastmod>2024-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- API Root -->
   <url>
-    <loc>https://rtc-proyecto6-api-rest.vercel.app/api</loc>
+    <loc>https://ret-proyecto6-api-rest.vercel.app/api</loc>
     <lastmod>2024-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -22,7 +22,7 @@
 
   <!-- Endpoint: Álbumes -->
   <url>
-    <loc>https://rtc-proyecto6-api-rest.vercel.app/api/albums</loc>
+    <loc>https://ret-proyecto6-api-rest.vercel.app/api/albums</loc>
     <lastmod>2024-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -30,7 +30,7 @@
 
   <!-- Endpoint: Canciones -->
   <url>
-    <loc>https://rtc-proyecto6-api-rest.vercel.app/api/songs</loc>
+    <loc>https://ret-proyecto6-api-rest.vercel.app/api/songs</loc>
     <lastmod>2024-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -38,7 +38,7 @@
 
   <!-- LLMs.txt -->
   <url>
-    <loc>https://rtc-proyecto6-api-rest.vercel.app/llms.txt</loc>
+    <loc>https://ret-proyecto6-api-rest.vercel.app/llms.txt</loc>
     <lastmod>2024-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

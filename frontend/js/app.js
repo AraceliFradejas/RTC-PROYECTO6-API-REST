@@ -134,6 +134,26 @@ const navLinks = document.querySelector('.nav__links');
 const langToggle = document.getElementById('lang-toggle');
 const heroCarouselTrack = document.getElementById('hero-carousel-track');
 
+function createNode(tag, { className = '', text = '', attrs = {}, styles = {} } = {}, children = []) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== '') node.textContent = text;
+  Object.entries(attrs).forEach(([name, value]) => node.setAttribute(name, String(value)));
+  Object.assign(node.style, styles);
+  children.filter(Boolean).forEach((child) => node.append(child));
+  return node;
+}
+
+function createLoader(fullWidth = false) {
+  const loader = createNode('div', { className: 'loader' }, [createNode('div', { className: 'loader__spinner' })]);
+  if (fullWidth) loader.style.gridColumn = '1 / -1';
+  return loader;
+}
+
+function createMessage(text, className = '') {
+  return createNode('p', { className, text });
+}
+
 // ── State ────────────────────────────────────────────────
 let albumsCache = [];
 let searchTimeout = null;
@@ -455,25 +475,19 @@ async function renderHeroCarousel(albums) {
     })
   );
 
-  const carouselItems = withCovers
-    .map(
-      (album) => `
-        <figure class="hero__carousel-item">
-          <img src="${album.resolvedCover}" alt="Portada ${album.title}" loading="lazy" />
-        </figure>
-      `
-    )
-    .join('');
-
-  heroCarouselTrack.innerHTML = `${carouselItems}${carouselItems}`;
+  const fragment = document.createDocumentFragment();
+  [...withCovers, ...withCovers].forEach((album) => {
+    const image = createNode('img', {
+      attrs: { src: album.resolvedCover, alt: `Portada ${album.title}`, loading: 'lazy' }
+    });
+    fragment.append(createNode('figure', { className: 'hero__carousel-item' }, [image]));
+  });
+  heroCarouselTrack.replaceChildren(fragment);
 }
 
 // ═══ ALBUMS ═════════════════════════════════════════════
 async function loadAlbums() {
-  albumsGrid.innerHTML = `
-    <div class="loader" style="grid-column: 1 / -1;">
-      <div class="loader__spinner"></div>
-    </div>`;
+  albumsGrid.replaceChildren(createLoader(true));
 
   try {
     const res = await fetch(`${API_URL}/albums`);
@@ -484,56 +498,59 @@ async function loadAlbums() {
       renderAlbums(json.data);
       renderHeroCarousel(json.data);
     } else {
-      albumsGrid.innerHTML = `
-        <p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:3rem;">
-          No se encontraron álbumes. Ejecuta <code>npm run seed</code> para cargar datos.
-        </p>`;
+      const message = createMessage(getLabel('album.none'));
+      Object.assign(message.style, { gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '3rem' });
+      albumsGrid.replaceChildren(message);
     }
   } catch (err) {
     console.error('Error cargando álbumes:', err);
-    albumsGrid.innerHTML = `
-      <p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:3rem;">
-        ⚠️ Error conectando con la API. Asegúrate de que el servidor está corriendo.
-      </p>`;
+    const message = createMessage(getLabel('album.error'));
+    Object.assign(message.style, { gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '3rem' });
+    albumsGrid.replaceChildren(message);
   }
 }
 
 function renderAlbums(albums) {
-  albumsGrid.innerHTML = albums
-    .map(
-      (album, i) => {
-        const isShowgirl = normalizeText(album.title || '') === normalizeText('The Life of a Showgirl');
-        return `
-    <article class="album-card ${isShowgirl ? 'album-card--showgirl' : ''}" role="listitem" tabindex="0"
-             data-id="${album._id}"
-             style="--era-color: ${album.eraColor || '#d4a0c8'}"
-             aria-label="Álbum ${album.title}, ${album.year}"
-             onclick="openAlbum('${album._id}')"
-             onkeydown="if(event.key==='Enter') openAlbum('${album._id}')">
-      <div class="album-card__cover-wrapper">
-        <img class="album-card__cover"
-             data-album-id="${album._id}"
-             src="${album.coverImage}"
-             alt="Portada del álbum ${album.title}"
-             loading="${i < 4 ? 'eager' : 'lazy'}"
-             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22><rect fill=%22%2316161f%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%236b6a76%22 font-size=%2260%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎵</text></svg>'" />
-        <div class="album-card__overlay" aria-hidden="true">
-          <div class="album-card__play">▶</div>
-        </div>
-      </div>
-      <div class="album-card__body">
-        <span class="album-card__era" style="color: ${album.eraColor || '#d4a0c8'}">${album.era || ''}</span>
-        <h3 class="album-card__title">${album.title}</h3>
-        <div class="album-card__meta">
-          <span>${album.year}</span>
-          <span>${album.songs ? album.songs.length : 0} ${getLabel('album.meta')}</span>
-        </div>
-      </div>
-    </article>
-  `;
+  const fallbackCover = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22><rect fill=%22%2316161f%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%236b6a76%22 font-size=%2260%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎵</text></svg>';
+  const cards = albums.map((album, index) => {
+    const isShowgirl = normalizeText(album.title || '') === normalizeText('The Life of a Showgirl');
+    const image = createNode('img', {
+      className: 'album-card__cover',
+      attrs: {
+        'data-album-id': album._id,
+        src: album.coverImage,
+        alt: `Portada del álbum ${album.title}`,
+        loading: index < 4 ? 'eager' : 'lazy'
       }
-    )
-    .join('');
+    });
+    image.addEventListener('error', () => { image.src = fallbackCover; }, { once: true });
+
+    const overlay = createNode('div', { className: 'album-card__overlay', attrs: { 'aria-hidden': 'true' } }, [
+      createNode('div', { className: 'album-card__play', text: '▶' })
+    ]);
+    const cover = createNode('div', { className: 'album-card__cover-wrapper' }, [image, overlay]);
+    const era = createNode('span', { className: 'album-card__era', text: album.era || '' });
+    era.style.color = album.eraColor || '#d4a0c8';
+    const meta = createNode('div', { className: 'album-card__meta' }, [
+      createNode('span', { text: album.year }),
+      createNode('span', { text: `${album.songs ? album.songs.length : 0} ${getLabel('album.meta')}` })
+    ]);
+    const body = createNode('div', { className: 'album-card__body' }, [
+      era,
+      createNode('h3', { className: 'album-card__title', text: album.title }),
+      meta
+    ]);
+    const card = createNode('article', {
+      className: `album-card${isShowgirl ? ' album-card--showgirl' : ''}`,
+      attrs: { role: 'listitem', tabindex: '0', 'data-id': album._id, 'aria-label': `Álbum ${album.title}, ${album.year}` }
+    }, [cover, body]);
+    card.style.setProperty('--era-color', album.eraColor || '#d4a0c8');
+    card.addEventListener('click', () => openAlbum(album._id));
+    card.addEventListener('keydown', (event) => { if (event.key === 'Enter') openAlbum(album._id); });
+    return card;
+  });
+
+  albumsGrid.replaceChildren(...cards);
 
   hydrateAlbumCovers(albums);
 }
@@ -562,28 +579,29 @@ async function openAlbum(id) {
     modalLabel.textContent = album.label ? `${getLabel('song.label')} ${album.label}` : '';
 
     if (album.songs && album.songs.length > 0) {
-      modalSongsList.innerHTML = album.songs
-        .map((song, i) => {
-          const songLinks = getSongLinks(song);
-          return `
-            <li class="modal__song" role="listitem">
-              <span class="modal__song-number">${song.trackNumber || i + 1}</span>
-              <div class="modal__song-info">
-                <p class="modal__song-title">${song.title}</p>
-                <p class="modal__song-author">${song.author || 'Taylor Swift'}</p>
-              </div>
-              ${song.isPopular ? `<span class="modal__song-badge">${getLabel('song.popular')}</span>` : ''}
-              <div class="modal__song-actions">
-                <a class="modal__song-link" href="${songLinks.spotifyUrl}" target="_blank" rel="noopener noreferrer">${getLabel('song.openSpotify')}</a>
-                <a class="modal__song-link apple" href="${songLinks.appleUrl}" target="_blank" rel="noopener noreferrer">${getLabel('song.openApple')}</a>
-              </div>
-              <span class="modal__song-duration">${song.duration || ''}</span>
-            </li>
-          `;
-        })
-        .join('');
+      const songItems = album.songs.map((song, index) => {
+        const links = getSongLinks(song);
+        const info = createNode('div', { className: 'modal__song-info' }, [
+          createNode('p', { className: 'modal__song-title', text: song.title }),
+          createNode('p', { className: 'modal__song-author', text: song.author || 'Taylor Swift' })
+        ]);
+        const actions = createNode('div', { className: 'modal__song-actions' }, [
+          createNode('a', { className: 'modal__song-link', text: getLabel('song.openSpotify'), attrs: { href: links.spotifyUrl, target: '_blank', rel: 'noopener noreferrer' } }),
+          createNode('a', { className: 'modal__song-link apple', text: getLabel('song.openApple'), attrs: { href: links.appleUrl, target: '_blank', rel: 'noopener noreferrer' } })
+        ]);
+        return createNode('li', { className: 'modal__song', attrs: { role: 'listitem' } }, [
+          createNode('span', { className: 'modal__song-number', text: song.trackNumber || index + 1 }),
+          info,
+          song.isPopular ? createNode('span', { className: 'modal__song-badge', text: getLabel('song.popular') }) : null,
+          actions,
+          createNode('span', { className: 'modal__song-duration', text: song.duration || '' })
+        ]);
+      });
+      modalSongsList.replaceChildren(...songItems);
     } else {
-      modalSongsList.innerHTML = `<li class="modal__song" style="color:var(--text-muted); justify-content:center;">${getLabel('songs.empty')}</li>`;
+      const empty = createNode('li', { className: 'modal__song', text: getLabel('songs.empty') });
+      Object.assign(empty.style, { color: 'var(--text-muted)', justifyContent: 'center' });
+      modalSongsList.replaceChildren(empty);
     }
 
     // Color accent from era
@@ -613,14 +631,11 @@ async function performSearch() {
   const query = searchInput.value.trim();
 
   if (!query) {
-    searchResults.innerHTML = '';
+    searchResults.replaceChildren();
     return;
   }
 
-  searchResults.innerHTML = `
-    <div class="loader">
-      <div class="loader__spinner"></div>
-    </div>`;
+  searchResults.replaceChildren(createLoader());
 
   try {
     // Search by title first, then by author
@@ -665,7 +680,7 @@ async function performSearch() {
     renderSearchResults(help.matches, help, query);
   } catch (err) {
     console.error('Error buscando:', err);
-    searchResults.innerHTML = `<p class="search__no-results">${getLabel('song.error')}</p>`;
+    searchResults.replaceChildren(createMessage(getLabel('song.error'), 'search__no-results'));
   }
 }
 
@@ -683,46 +698,71 @@ function renderSearchResults(songs, help = null, originalQuery = '') {
           ? getLabel('search.byAuthor')
           : '';
 
-  const playfulText = playful ? `<p class="search__suggestion-note">${playful}</p>` : '';
-  const suggestionBlock = suggestion
-    ? `${playfulText}<div class="search__suggestion">${getLabel('search.didYouMean')} <button class="search__suggestion-btn" type="button" data-suggestion-query="${suggestion}">${suggestion}</button>${typeLabel ? ` (${typeLabel})` : ''}?</div>`
-    : '';
+  const headingNodes = [];
+  if (originalQuery) {
+    headingNodes.push(createMessage(`${getLabel('search.resultsFor')} "${originalQuery}"`, 'search__results-heading'));
+  }
+
+  if (suggestion) {
+    if (playful) headingNodes.push(createMessage(playful, 'search__suggestion-note'));
+    const suggestionButton = createNode('button', {
+      className: 'search__suggestion-btn',
+      text: suggestion,
+      attrs: { type: 'button', 'data-suggestion-query': suggestion }
+    });
+    const suggestionBox = createNode('div', { className: 'search__suggestion' }, [
+      document.createTextNode(`${getLabel('search.didYouMean')} `),
+      suggestionButton,
+      document.createTextNode(`${typeLabel ? ` (${typeLabel})` : ''}?`)
+    ]);
+    headingNodes.push(suggestionBox);
+  }
 
   if (songs.length === 0) {
-    searchResults.innerHTML = `${suggestionBlock}<p class="search__no-results">${getLabel('search.empty')}</p>`;
+    searchResults.replaceChildren(...headingNodes, createMessage(getLabel('search.empty'), 'search__no-results'));
     return;
   }
 
-  const resultsHeading = originalQuery
-    ? `<p class="search__results-heading">${getLabel('search.resultsFor')} "${originalQuery}"</p>`
-    : '';
+  const cards = songs.map((song, index) => {
+    const links = getSongLinks(song);
+    const metadata = createNode('p', { className: 'search-result-card__meta' }, [
+      document.createTextNode(song.author || 'Taylor Swift')
+    ]);
+    if (song.album) {
+      metadata.append(document.createTextNode(' · '));
+      metadata.append(createNode('strong', { text: song.album.title }));
+      metadata.append(document.createTextNode(` (${song.album.year || ''})`));
+    }
+    const info = createNode('div', { className: 'search-result-card__info' }, [
+      createNode('p', { className: 'search-result-card__title', text: song.title }),
+      metadata
+    ]);
+    const actions = createNode('div', { className: 'search-result-card__actions' }, [
+      createNode('a', { className: 'search-result-card__link', text: getLabel('song.openSpotify'), attrs: { href: links.spotifyUrl, target: '_blank', rel: 'noopener noreferrer' } }),
+      createNode('a', { className: 'search-result-card__link apple', text: getLabel('song.openApple'), attrs: { href: links.appleUrl, target: '_blank', rel: 'noopener noreferrer' } })
+    ]);
+    const card = createNode('div', {
+      className: 'search-result-card',
+      attrs: {
+        tabindex: '0',
+        role: 'button',
+        'aria-label': `Canción ${song.title} del álbum ${song.album ? song.album.title : 'desconocido'}`
+      }
+    }, [
+      createNode('span', { className: 'search-result-card__number', text: index + 1 }),
+      info,
+      song.isPopular ? createNode('span', { className: 'search-result-card__popular', text: getLabel('song.popular') }) : null,
+      actions,
+      createNode('span', { className: 'search-result-card__duration', text: song.duration || '' })
+    ]);
+    if (song.album?._id) {
+      card.addEventListener('click', (event) => { if (!event.target.closest('a')) openAlbum(song.album._id); });
+      card.addEventListener('keydown', (event) => { if (event.key === 'Enter') openAlbum(song.album._id); });
+    }
+    return card;
+  });
 
-  searchResults.innerHTML = `${resultsHeading}${suggestionBlock}` + songs
-    .map((song, i) => {
-      const songLinks = getSongLinks(song);
-      return `
-        <div class="search-result-card" tabindex="0"
-             ${song.album && song.album._id ? `onclick="openAlbum('${song.album._id}')" onkeydown="if(event.key==='Enter') openAlbum('${song.album._id}')"` : ''}
-             role="button"
-             aria-label="Canción ${song.title} del álbum ${song.album ? song.album.title : 'desconocido'}">
-          <span class="search-result-card__number">${i + 1}</span>
-          <div class="search-result-card__info">
-            <p class="search-result-card__title">${song.title}</p>
-            <p class="search-result-card__meta">
-              ${song.author || 'Taylor Swift'}
-              ${song.album ? ` · <strong>${song.album.title}</strong> (${song.album.year || ''})` : ''}
-            </p>
-          </div>
-          ${song.isPopular ? `<span class="search-result-card__popular">${getLabel('song.popular')}</span>` : ''}
-          <div class="search-result-card__actions">
-            <a href="${songLinks.spotifyUrl}" target="_blank" rel="noopener noreferrer" class="search-result-card__link">${getLabel('song.openSpotify')}</a>
-            <a href="${songLinks.appleUrl}" target="_blank" rel="noopener noreferrer" class="search-result-card__link apple">${getLabel('song.openApple')}</a>
-          </div>
-          <span class="search-result-card__duration">${song.duration || ''}</span>
-        </div>
-      `;
-    })
-    .join('');
+  searchResults.replaceChildren(...headingNodes, ...cards);
 }
 
 // Make openAlbum globally accessible
