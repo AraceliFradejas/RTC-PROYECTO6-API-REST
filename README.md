@@ -1,190 +1,245 @@
-# 🎵 Taylor Swift Discography — API REST
+# Taylor Swift Discography API REST
 
-> API REST completa sobre la discografía de Taylor Swift, construida con **Node.js**, **Express** y **MongoDB Atlas**.
+API REST y aplicación web para explorar y gestionar una selección de la discografía de Taylor Swift. Proyecto académico del módulo Backend Node + Mongo de Rock The Code, desarrollado con Node.js, Express, MongoDB Atlas y Mongoose.
 
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)
+[Ver aplicación](https://ret-proyecto6-api-rest.vercel.app/) · [Consultar la API](https://ret-proyecto6-api-rest.vercel.app/api) · [Repositorio](https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST)
+
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue)
+![Vercel](https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white)
 
-## 📋 Descripción
+## Versión en castellano
 
-Proyecto 6 del módulo Backend de **The Power Education**. Una API REST que permite gestionar la discografía de Taylor Swift con la línea oficial de lanzamientos, incluidas las regrabaciones y los álbumes más recientes. Incluye un frontend web visual con búsqueda en tiempo real.
+### Proyecto académico
 
-## 🛠️ Tech Stack
+La aplicación organiza álbumes y canciones en dos colecciones relacionadas. Cada álbum contiene un array de referencias a canciones y las consultas utilizan `populate` para devolver sus datos relacionados.
 
-| Tecnología | Uso |
-|---|---|
-| **Node.js** | Runtime |
-| **Express** | Framework HTTP |
-| **MongoDB Atlas** | Base de datos en la nube |
-| **Mongoose** | ODM para MongoDB |
-| **HTML5 + CSS3 + JS** | Frontend |
-| **Vercel** | Despliegue |
+Incluye:
 
-## 🚀 Instalación
+- servidor con Express y conexión a MongoDB Atlas mediante Mongoose;
+- modelos `Album` y `Song` y CRUD completo de ambos;
+- semilla con 16 álbumes y más de 90 canciones;
+- relación uno a muchos entre álbumes y canciones;
+- actualización de álbumes sin sobrescribir el array `songs`;
+- prevención de duplicados mediante `$addToSet`;
+- filtros por título, autor, año y era;
+- frontend responsive bilingüe, gestión de errores y despliegue en Vercel.
 
-### 1. Clonar el repositorio
+### Demo
+
+- Aplicación: <https://ret-proyecto6-api-rest.vercel.app/>
+- Estado de la API: <https://ret-proyecto6-api-rest.vercel.app/api>
+- Álbumes: <https://ret-proyecto6-api-rest.vercel.app/api/albums>
+- Canciones: <https://ret-proyecto6-api-rest.vercel.app/api/songs>
+
+### Modelos y relación
+
+#### Album
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `title` | String, requerido y único | Título del álbum |
+| `year` | Number, requerido | Año de publicación |
+| `coverImage` | String | URL de la portada |
+| `description` | String | Descripción del álbum |
+| `era` / `eraColor` | String | Era y color asociado |
+| `totalTracks` | Number | Número total de pistas |
+| `songs` | Array de ObjectId | Referencias a `Song` |
+| `label` | String | Sello discográfico |
+
+#### Song
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `title` | String, requerido | Título de la canción |
+| `author` | String, requerido | Autoría |
+| `duration` / `trackNumber` | String / Number | Duración y posición |
+| `album` | ObjectId, requerido | Referencia a `Album` |
+| `isPopular` | Boolean | Canción destacada |
+| `lyrics` / `year` | String / Number | Letra y año |
+| `spotifyUrl` / `appleMusicUrl` | String | Enlaces de streaming |
+
+`Song.album` referencia un álbum y `Album.songs` conserva el array relacionado. Al crear, mover o eliminar una canción se sincroniza el array del álbum. El `PUT` de álbumes ignora cualquier `songs` recibido en el body para evitar borrados accidentales y `$addToSet` evita referencias duplicadas.
+
+### Endpoints
+
+URL base: `https://ret-proyecto6-api-rest.vercel.app/api`
+
+#### Álbumes
+
+| Método | Endpoint | Acción |
+| --- | --- | --- |
+| `GET` | `/albums` | Obtener álbumes con sus canciones |
+| `GET` | `/albums?title=folklore` | Filtrar por título |
+| `GET` | `/albums?year=2020` | Filtrar por año |
+| `GET` | `/albums?era=reputation` | Filtrar por era |
+| `GET` | `/albums/:id` | Obtener un álbum |
+| `POST` | `/albums` | Crear un álbum |
+| `PUT` | `/albums/:id` | Actualizar sin borrar `songs` |
+| `DELETE` | `/albums/:id` | Eliminar álbum y canciones |
+| `POST` | `/albums/:id/songs/:songId` | Añadir referencia sin duplicados |
+| `DELETE` | `/albums/:id/songs/:songId` | Quitar una referencia desvinculada |
+
+#### Canciones
+
+| Método | Endpoint | Acción |
+| --- | --- | --- |
+| `GET` | `/songs` | Obtener todas las canciones |
+| `GET` | `/songs?title=love` | Filtrar por título |
+| `GET` | `/songs?author=Jack%20Antonoff` | Filtrar por autor |
+| `GET` | `/songs?year=2020` | Filtrar por año |
+| `GET` | `/songs/:id` | Obtener una canción |
+| `POST` | `/songs` | Crear y relacionar una canción |
+| `PUT` | `/songs/:id` | Actualizar y sincronizar su álbum |
+| `DELETE` | `/songs/:id` | Eliminar y retirar su referencia |
+
+### Ejemplo de creación
+
+```http
+POST /api/songs
+Content-Type: application/json
+```
+
+```json
+{
+  "title": "Example Song",
+  "author": "Taylor Swift",
+  "duration": "3:45",
+  "trackNumber": 1,
+  "album": "ID_DEL_ALBUM",
+  "isPopular": false,
+  "year": 2026
+}
+```
+
+### Instalación local
+
+Requisitos: Node.js 18 o posterior y MongoDB Atlas.
 
 ```bash
 git clone https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST.git
 cd RTC-PROYECTO6-API-REST
-```
-
-### 2. Instalar dependencias
-
-```bash
 npm install
 ```
 
-### 3. Configurar variables de entorno
-
-Copia `.env.example` a `.env` y rellena tu URI de MongoDB Atlas:
-
-```bash
-cp .env.example .env
-```
+Crea un archivo `.env` en la raíz:
 
 ```env
 PORT=3000
-MONGO_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/taylorswift-db?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://USUARIO:CONTRASEÑA@CLUSTER.mongodb.net/taylorswift-db?retryWrites=true&w=majority
+NODE_ENV=development
 ```
 
-> ⚠️ **IMPORTANTE**: Asegúrate de tener la IP `0.0.0.0/0` en **MongoDB Atlas → Network Access** para que el evaluador pueda acceder.
-
-### 4. Cargar datos de ejemplo (seed)
+En Atlas, configura el acceso de red que necesite el entorno de corrección. Si utilizas `0.0.0.0/0`, usa permisos mínimos y una contraseña exclusiva para esta entrega.
 
 ```bash
 npm run seed
+npm start
 ```
 
-Esto cargará la base de la discografía oficial de Taylor Swift en el proyecto, con los lanzamientos más representativos y sus regrabaciones principales.
+La aplicación estará en `http://localhost:3000` y la API en `http://localhost:3000/api`. Para desarrollo con recarga automática, utiliza `npm run dev`.
 
-### 5. Iniciar el servidor
+> El `.env` contiene credenciales y no se publica. Las variables de producción se configuran en Vercel y las credenciales de corrección se comparten únicamente por el canal privado del centro.
+
+### Estructura
+
+```text
+.
+├── frontend/
+│   ├── css/styles.css
+│   ├── js/app.js
+│   └── index.html
+├── src/
+│   ├── config/db.js
+│   ├── controllers/
+│   ├── middleware/errorHandler.js
+│   ├── models/
+│   ├── routes/
+│   └── seeds/seed.js
+├── index.js
+├── package.json
+└── vercel.json
+```
+
+### Tecnologías
+
+Node.js · Express · MongoDB Atlas · Mongoose · HTML5 · CSS3 · JavaScript · Vercel
+
+### Autora
+
+Araceli Fradejas Muñoz — [GitHub](https://github.com/AraceliFradejas)
+
+Proyecto realizado para The Power Tech School, máster Rock The Code.
+
+---
+
+## English version
+
+### Academic project
+
+This REST API and web application organize albums and songs in two related MongoDB collections. Each album contains an array of song references, and album queries use Mongoose `populate` to return the related data.
+
+It includes an Express server, MongoDB Atlas with Mongoose, `Album` and `Song` models, complete CRUD operations, a seed with 16 albums and more than 90 songs, search filters, centralized error handling, a responsive Spanish/English frontend and Vercel deployment.
+
+### Live demo
+
+- Application: <https://ret-proyecto6-api-rest.vercel.app/>
+- API status: <https://ret-proyecto6-api-rest.vercel.app/api>
+- Albums: <https://ret-proyecto6-api-rest.vercel.app/api/albums>
+- Songs: <https://ret-proyecto6-api-rest.vercel.app/api/songs>
+
+### Relationship behavior
+
+`Song.album` references an album, while `Album.songs` stores the related song IDs. Creating, moving or deleting a song keeps the album array synchronized. Album updates ignore a `songs` property in the request body, preventing accidental replacement, and `$addToSet` prevents duplicate references.
+
+### API endpoints
+
+Base URL: `https://ret-proyecto6-api-rest.vercel.app/api`
+
+| Resource | Methods and routes |
+| --- | --- |
+| Albums | `GET/POST /albums`, `GET/PUT/DELETE /albums/:id` |
+| Album filters | `GET /albums?title=`, `?year=`, `?era=` |
+| Relationship | `POST/DELETE /albums/:id/songs/:songId` |
+| Songs | `GET/POST /songs`, `GET/PUT/DELETE /songs/:id` |
+| Song filters | `GET /songs?title=`, `?author=`, `?year=` |
+
+### Run locally
+
+Requirements: Node.js 18 or later and MongoDB Atlas.
 
 ```bash
-# Producción
+git clone https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST.git
+cd RTC-PROYECTO6-API-REST
+npm install
+```
+
+Create `.env` in the project root:
+
+```env
+PORT=3000
+MONGO_URI=mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/taylorswift-db?retryWrites=true&w=majority
+NODE_ENV=development
+```
+
+Then run:
+
+```bash
+npm run seed
 npm start
-
-# Desarrollo (con auto-reload)
-npm run dev
 ```
 
-El servidor estará disponible en `http://localhost:3000`
+The app will be available at `http://localhost:3000`, with the API at `http://localhost:3000/api`.
 
-## 📐 Modelos
+> `.env` contains credentials and is not published. Production variables belong in Vercel, and submission credentials should only be shared through the school's private channel.
 
-### Album
+### Technologies
 
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `title` | String (required, unique) | Título del álbum |
-| `year` | Number (required) | Año de publicación |
-| `coverImage` | String | URL de la portada |
-| `description` | String | Descripción / era |
-| `era` | String | Nombre de la era |
-| `eraColor` | String | Color hex de la era |
-| `totalTracks` | Number | Nº total de pistas |
-| `songs` | [ObjectId] → Song | **Array relacionado** con canciones |
-| `label` | String | Sello discográfico |
+Node.js · Express · MongoDB Atlas · Mongoose · HTML5 · CSS3 · JavaScript · Vercel
 
-### Song
+### Author
 
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `title` | String (required) | Título de la canción |
-| `author` | String (required) | Compositor(es) |
-| `duration` | String | Duración (ej. "3:45") |
-| `trackNumber` | Number | Número de pista |
-| `album` | ObjectId → Album | Referencia al álbum |
-| `isPopular` | Boolean | ¿Es un single/popular? |
-| `lyrics` | String | Fragmento de la letra |
-| `year` | Number | Año |
+Araceli Fradejas Muñoz — [GitHub](https://github.com/AraceliFradejas)
 
-**Relación**: `Album.songs` contiene un array de ObjectIds que referencian `Song` (relación 1:N con populate).
-
-## 🔗 Endpoints API
-
-### Albums — `/api/albums`
-
-| Método | Endpoint | Descripción |
-|---|---|---|
-| `GET` | `/api/albums` | Obtener todos los álbumes (con populate de songs) |
-| `GET` | `/api/albums?title=folklore` | Buscar álbumes por título |
-| `GET` | `/api/albums?year=2020` | Buscar álbumes por año |
-| `GET` | `/api/albums?era=reputation` | Buscar álbumes por era |
-| `GET` | `/api/albums/:id` | Obtener un álbum por ID |
-| `POST` | `/api/albums` | Crear un álbum nuevo |
-| `PUT` | `/api/albums/:id` | Actualizar un álbum (**sin borrar el array songs**) |
-| `DELETE` | `/api/albums/:id` | Eliminar un álbum y sus canciones |
-| `POST` | `/api/albums/:id/songs/:songId` | Añadir canción al álbum (**sin duplicados**) |
-| `DELETE` | `/api/albums/:id/songs/:songId` | Quitar canción del álbum |
-
-### Songs — `/api/songs`
-
-| Método | Endpoint | Descripción |
-|---|---|---|
-| `GET` | `/api/songs` | Obtener todas las canciones |
-| `GET` | `/api/songs?title=love` | Buscar canciones por título |
-| `GET` | `/api/songs?author=Max+Martin` | Buscar canciones por autor |
-| `GET` | `/api/songs?year=2014` | Buscar canciones por año |
-| `GET` | `/api/songs/:id` | Obtener una canción por ID |
-| `POST` | `/api/songs` | Crear una canción nueva |
-| `PUT` | `/api/songs/:id` | Actualizar una canción |
-| `DELETE` | `/api/songs/:id` | Eliminar una canción |
-
-### Ejemplos de Body (JSON)
-
-**Crear álbum:**
-```json
-{
-  "title": "The Tortured Poets Department",
-  "year": 2024,
-  "era": "TTPD Era",
-  "eraColor": "#f5f5f5",
-  "description": "El undécimo álbum de estudio de Taylor Swift",
-  "label": "Republic Records"
-}
-```
-
-**Crear canción:**
-```json
-{
-  "title": "Fortnight",
-  "author": "Taylor Swift, Post Malone, Jack Antonoff",
-  "duration": "3:48",
-  "trackNumber": 1,
-  "album": "<album_id>",
-  "isPopular": true
-}
-```
-
-## ✅ Requisitos cumplidos
-
-| Requisito | Estado | Detalle |
-|---|---|---|
-| Servidor con Express | ✅ | `index.js` |
-| Conexión Mongo Atlas + Mongoose | ✅ | `src/config/db.js` |
-| 2 modelos | ✅ | `Album` y `Song` |
-| Semilla de datos | ✅ | `npm run seed` con la discografía oficial y las regrabaciones principales |
-| Relación entre colecciones | ✅ | `Album.songs = [ObjectId]` → populate |
-| CRUD completo (ambas) | ✅ | GET, POST, PUT, DELETE |
-| README con endpoints | ✅ | Este archivo |
-| PUT sin borrar array | ✅ | Se excluye `songs` del body al actualizar |
-| Sin duplicados en array | ✅ | Se usa `$addToSet` de MongoDB |
-
-## 🌐 Frontend
-
-El proyecto incluye un frontend web accesible en `http://localhost:3000/` con:
-
-- 🎨 Diseño oscuro y elegante con colores por era
-- 🔍 Buscador de canciones en tiempo real
-- 📱 Diseño responsive
-- ♿ Accesibilidad (ARIA, focus, skip-nav, contraste)
-- 📊 SEO (meta tags, JSON-LD, sitemap)
-
-## 👩‍💻 Autora
-
-**Araceli Fradejas** — [GitHub](https://github.com/AraceliFradejas)
-
-Proyecto realizado para **The Power Education** — Módulo 5 Backend (Node | Mongo | API REST)
+Academic project for The Power Tech School's Rock The Code program.
