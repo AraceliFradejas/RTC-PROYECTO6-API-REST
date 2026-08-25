@@ -48,7 +48,7 @@ app.get('*', (req, res) => {
 // ── Manejador de errores global ───────────────────────────────
 app.use(errorHandler);
 
-// ── Iniciar servidor ──────────────────────────────────────────
+// ── Iniciar servidor (solo en ejecución local) ─────────────────
 const startServer = (port = Number(process.env.PORT) || 3000) => {
   const server = app.listen(port, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
@@ -67,6 +67,8 @@ const startServer = (port = Number(process.env.PORT) || 3000) => {
   });
 };
 
-startServer();
+if (require.main === module) {
+  startServer();
+}
 
 module.exports = app;
