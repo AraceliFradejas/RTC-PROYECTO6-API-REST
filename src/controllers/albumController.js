@@ -1,6 +1,51 @@
 const Album = require('../models/Album');
 const Song = require('../models/Song');
 
+const coverCache = new Map();
+
+const normalizeText = (text = '') =>
+  text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const resolveAlbumCover = async (album) => {
+  if (!album || !album.title) return album;
+
+  const hasGeneratedCover = typeof album.coverImage === 'string' && album.coverImage.startsWith('data:image/svg+xml');
+  if (!hasGeneratedCover) return album;
+
+  if (coverCache.has(album.title)) {
+    return { ...album, coverImage: coverCache.get(album.title) };
+  }
+
+  try {
+    const query = encodeURIComponent(`Taylor Swift ${album.title}`);
+    const response = await fetch(`https://itunes.apple.com/search?term=${query}&entity=album&limit=10`);
+    const data = await response.json();
+    const results = Array.isArray(data.results) ? data.results : [];
+
+    const wanted = normalizeText(album.title);
+    const bestMatch =
+      results.find((item) => normalizeText(item.collectionName || '') === wanted) ||
+      results.find((item) => normalizeText(item.collectionName || '').includes(wanted)) ||
+      results[0];
+
+    if (bestMatch && bestMatch.artworkUrl100) {
+      const realCover = bestMatch.artworkUrl100.replace('100x100bb', '1200x1200bb');
+      coverCache.set(album.title, realCover);
+      return { ...album, coverImage: realCover };
+    }
+  } catch (error) {
+    // Si falla iTunes, devolvemos la portada existente para no romper la API.
+  }
+
+  return album;
+};
+
 // @desc    Obtener todos los álbumes
 // @route   GET /api/albums
 const getAllAlbums = async (req, res, next) => {
@@ -13,10 +58,12 @@ const getAllAlbums = async (req, res, next) => {
     if (era) filter.era = { $regex: era, $options: 'i' };
 
     const albums = await Album.find(filter)
-      .populate('songs', 'title author duration trackNumber isPopular')
+      .populate('songs', 'title author duration trackNumber isPopular spotifyUrl appleMusicUrl')
       .sort({ year: 1 });
 
-    res.status(200).json({ success: true, count: albums.length, data: albums });
+    const albumsWithCovers = await Promise.all(albums.map((album) => resolveAlbumCover(album.toObject())));
+
+    res.status(200).json({ success: true, count: albumsWithCovers.length, data: albumsWithCovers });
   } catch (error) {
     next(error);
   }
@@ -28,12 +75,15 @@ const getAlbumById = async (req, res, next) => {
   try {
     const album = await Album.findById(req.params.id).populate(
       'songs',
-      'title author duration trackNumber isPopular lyrics year'
+      'title author duration trackNumber isPopular lyrics year spotifyUrl appleMusicUrl'
     );
     if (!album) {
       return res.status(404).json({ success: false, error: 'Álbum no encontrado' });
     }
-    res.status(200).json({ success: true, data: album });
+
+    const albumWithCover = await resolveAlbumCover(album.toObject());
+
+    res.status(200).json({ success: true, data: albumWithCover });
   } catch (error) {
     next(error);
   }

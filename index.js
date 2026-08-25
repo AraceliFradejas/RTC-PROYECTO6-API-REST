@@ -49,10 +49,24 @@ app.get('*', (req, res) => {
 app.use(errorHandler);
 
 // ── Iniciar servidor ──────────────────────────────────────────
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-  console.log(`📖 API disponible en http://localhost:${PORT}/api`);
-});
+const startServer = (port = Number(process.env.PORT) || 3000) => {
+  const server = app.listen(port, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
+    console.log(`📖 API disponible en http://localhost:${port}/api`);
+  });
+
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      console.warn(`⚠️ Puerto ${port} ocupado. Intentando ${port + 1}...`);
+      startServer(port + 1);
+      return;
+    }
+
+    console.error('❌ Error arrancando el servidor:', error.message);
+    process.exit(1);
+  });
+};
+
+startServer();
 
 module.exports = app;

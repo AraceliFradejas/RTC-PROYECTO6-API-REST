@@ -36,6 +36,16 @@ const songSchema = new mongoose.Schema(
     },
     year: {
       type: Number
+    },
+    spotifyUrl: {
+      type: String,
+      trim: true,
+      default: ''
+    },
+    appleMusicUrl: {
+      type: String,
+      trim: true,
+      default: ''
     }
   },
   {
