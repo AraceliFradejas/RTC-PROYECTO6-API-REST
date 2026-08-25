@@ -12,10 +12,6 @@
       "dest": "index.js"
     },
     {
-      "src": "/(.*\\.(css|js|ico|png|jpg|svg|xml|txt))",
-      "dest": "/frontend/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "index.js"
     }
