@@ -9,9 +9,6 @@ const errorHandler = require('./src/middleware/errorHandler');
 const albumRoutes = require('./src/routes/albumRoutes');
 const songRoutes = require('./src/routes/songRoutes');
 
-// Conectar a la base de datos
-connectDB();
-
 const app = express();
 
 // ── Middlewares ──────────────────────────────────────────────
@@ -23,6 +20,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 // ── Rutas API ─────────────────────────────────────────────────
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use('/api/albums', albumRoutes);
 app.use('/api/songs', songRoutes);
 
@@ -49,7 +55,14 @@ app.get('*', (req, res) => {
 app.use(errorHandler);
 
 // ── Iniciar servidor (solo en ejecución local) ─────────────────
-const startServer = (port = Number(process.env.PORT) || 3000) => {
+const startServer = async (port = Number(process.env.PORT) || 3000) => {
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error(`❌ Error conectando a MongoDB: ${error.message}`);
+    process.exit(1);
+  }
+
   const server = app.listen(port, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
     console.log(`📖 API disponible en http://localhost:${port}/api`);
