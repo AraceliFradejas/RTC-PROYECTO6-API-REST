@@ -145,6 +145,18 @@ const deleteAlbum = async (req, res, next) => {
 // @route   POST /api/albums/:id/songs/:songId
 const addSongToAlbum = async (req, res, next) => {
   try {
+    const song = await Song.findById(req.params.songId);
+    if (!song) {
+      return res.status(404).json({ success: false, error: 'Canción no encontrada' });
+    }
+
+    if (song.album.toString() !== req.params.id) {
+      return res.status(400).json({
+        success: false,
+        error: 'La canción pertenece a otro álbum. Actualiza primero la canción.'
+      });
+    }
+
     const album = await Album.findByIdAndUpdate(
       req.params.id,
       { $addToSet: { songs: req.params.songId } },
@@ -164,6 +176,14 @@ const addSongToAlbum = async (req, res, next) => {
 // @route   DELETE /api/albums/:id/songs/:songId
 const removeSongFromAlbum = async (req, res, next) => {
   try {
+    const song = await Song.findById(req.params.songId);
+    if (song && song.album.toString() === req.params.id) {
+      return res.status(400).json({
+        success: false,
+        error: 'No se puede quitar la relación mientras la canción pertenezca al álbum'
+      });
+    }
+
     const album = await Album.findByIdAndUpdate(
       req.params.id,
       { $pull: { songs: req.params.songId } },

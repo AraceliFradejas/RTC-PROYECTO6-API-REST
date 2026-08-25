@@ -37,6 +37,11 @@ const getSongById = async (req, res, next) => {
 // @route   POST /api/songs
 const createSong = async (req, res, next) => {
   try {
+    const album = await Album.findById(req.body.album);
+    if (!album) {
+      return res.status(404).json({ success: false, error: 'Álbum no encontrado' });
+    }
+
     const song = await Song.create(req.body);
 
     // ✅ Añadir la canción al array del álbum usando $addToSet (evita duplicados)
@@ -56,13 +61,28 @@ const createSong = async (req, res, next) => {
 // @route   PUT /api/songs/:id
 const updateSong = async (req, res, next) => {
   try {
+    const currentSong = await Song.findById(req.params.id);
+    if (!currentSong) {
+      return res.status(404).json({ success: false, error: 'Canción no encontrada' });
+    }
+
+    const nextAlbumId = req.body.album || currentSong.album;
+    const nextAlbum = await Album.findById(nextAlbumId);
+    if (!nextAlbum) {
+      return res.status(404).json({ success: false, error: 'Álbum no encontrado' });
+    }
+
     const song = await Song.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
-    if (!song) {
-      return res.status(404).json({ success: false, error: 'Canción no encontrada' });
+
+    if (currentSong.album.toString() !== song.album.toString()) {
+      await Album.findByIdAndUpdate(currentSong.album, { $pull: { songs: song._id } });
     }
+
+    await Album.findByIdAndUpdate(song.album, { $addToSet: { songs: song._id } });
+
     res.status(200).json({ success: true, data: song });
   } catch (error) {
     next(error);
