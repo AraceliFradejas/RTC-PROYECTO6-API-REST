@@ -145,6 +145,8 @@ Al eliminar la canción, su referencia desaparece del álbum. Finalmente se elim
 
 El frontend no forma parte del CRUD ni sustituye las pruebas realizadas con Insomnia. Se incorporó como un anexo visual para facilitar la exploración de los datos devueltos por la API y presentar de forma más accesible la relación entre álbumes y canciones. Su finalidad es ofrecer el punto de vista de una persona usuaria que interactúa con la información sin ver directamente el backend ni sus respuestas JSON.
 
+El anexo está desplegado en Vercel y puede consultarse en [Taylor Swift Discography API REST](https://ret-proyecto6-api-rest.vercel.app/). Desde la misma aplicación se accede a los datos servidos por la API desplegada.
+
 Está desarrollado con HTML, CSS y JavaScript nativo y consume exclusivamente las rutas de lectura. Permite:
 
 - visualizar las eras y los álbumes en tarjetas;
@@ -158,6 +160,12 @@ La creación de elementos DOM se centraliza en una función auxiliar y las disti
 
 Como apoyo a la accesibilidad y al posicionamiento, el anexo emplea HTML semántico, textos alternativos, atributos ARIA, metadatos sociales, `robots.txt` y `sitemap.xml`.
 
+### Experimento de aprendizaje con `llms.txt`
+
+Como parte de mi aprendizaje sobre GEO (*Generative Engine Optimization*), incorporé también [`frontend/llms.txt`](frontend/llms.txt). Me interesaba experimentar con un archivo de texto que ofreciera a sistemas basados en modelos de lenguaje un resumen estructurado del proyecto, sus modelos, relaciones y endpoints.
+
+Su inclusión es exploratoria: `llms.txt` no sustituye el README, la especificación OpenAPI, el sitemap ni las prácticas habituales de SEO, y su interpretación puede variar entre herramientas. En este proyecto se utiliza como ejercicio práctico para estudiar nuevas formas de hacer que la documentación técnica resulte comprensible y localizable tanto para personas como para asistentes de IA.
+
 La interfaz está deliberadamente separada del recorrido de evaluación del backend: las operaciones `POST`, `PUT` y `DELETE` se documentan y demuestran con Insomnia. El frontend admite una evolución importante en componentización, separación de módulos JavaScript y organización del CSS. En esta entrega se mantuvo como anexo porque el objetivo académico era construir y demostrar la API REST; esa reorganización mejoraría su mantenimiento y escalabilidad sin afectar al funcionamiento del backend.
 
 ## 9. Cumplimiento de requisitos
@@ -170,7 +178,7 @@ La interfaz está deliberadamente separada del recorrido de evaluación del back
 | Semilla | `src/seeds/seed.js` |
 | Array relacionado | `Album.songs` |
 | CRUD completo | Rutas y controladores de ambos recursos |
-| Documentación | README, OpenAPI y guía de Insomnia |
+| Documentación | README, memoria, OpenAPI y guía de Insomnia |
 | Conservar relacionados al actualizar | Exclusión de `songs` en `updateAlbum` |
 | Evitar duplicados | `$addToSet` |
 

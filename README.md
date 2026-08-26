@@ -132,6 +132,38 @@ Puede ejecutarse desde VS Code con la extensión REST Client. Arranca primero la
 
 > La API es pública con fines académicos. Las operaciones de escritura modifican datos reales; utiliza el flujo de pruebas en local o sobre una base de datos de desarrollo.
 
+### Evidencias con Insomnia
+
+Las siguientes capturas resumen el recorrido principal. La secuencia completa y la explicación de cada comprobación están disponibles en la [memoria del proyecto](MEMORIA.md#7-evidencias-de-funcionamiento).
+
+#### Consulta de las colecciones
+
+![Listado de álbumes con sus canciones relacionadas](<screenshots/Insomnia4_Listar y filtrar albumes.png>)
+
+#### Creación de un álbum
+
+![Alta de un álbum temporal](<screenshots/Insomnia5_AltaDeAlbum.png>)
+
+#### Creación y relación de una canción
+
+![Creación de una canción relacionada](<screenshots/Insomnia8_CrearUnaCancion.png>)
+
+![Consulta de la relación entre álbum y canción](<screenshots/Insomnia9_RelacionCancionyAlbum.png>)
+
+#### Prevención de duplicados
+
+![Comprobación del array sin referencias duplicadas](<screenshots/Insomnia11_ConsultaSinDuplicadosAlbum.png>)
+
+#### Actualización sin borrar relaciones
+
+![Comprobación de las canciones después de actualizar el álbum](<screenshots/Insomnia12_ActualizacionAlbumNoBorraCancionesComprobacion.png>)
+
+#### Filtrado y eliminación
+
+![Filtro de canciones por título](<screenshots/Insomnia14_ListaFiltraCanciones.png>)
+
+![Eliminación del álbum temporal](<screenshots/Insomnia17_AlbumEliminado.png>)
+
 ### Instalación local
 
 Requisitos: Node.js 18 o posterior y MongoDB Atlas.

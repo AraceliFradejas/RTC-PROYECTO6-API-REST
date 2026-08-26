@@ -55,17 +55,7 @@ Todas las respuestas siguen este formato:
 
 ## Datos del Seed
 
-El seed (npm run seed) carga 10 álbumes de estudio de Taylor Swift con 5 canciones representativas cada uno (50 canciones en total):
-- Taylor Swift (2006) — Debut Era
-- Fearless (2008) — Fearless Era
-- Speak Now (2010) — Speak Now Era
-- Red (2012) — Red Era
-- 1989 (2014) — 1989 Era
-- Reputation (2017) — Reputation Era
-- Lover (2019) — Lover Era
-- Folklore (2020) — Folklore Era
-- Evermore (2020) — Evermore Era
-- Midnights (2022) — Midnights Era
+El comando `npm run seed` crea o actualiza 16 álbumes y más de 280 canciones. La semilla utiliza operaciones `upsert`, por lo que puede ejecutarse varias veces sin vaciar las colecciones, y `$addToSet` evita duplicar las referencias de canciones en los álbumes.
 
 ## Estructura del Proyecto
 
@@ -83,6 +73,10 @@ El seed (npm run seed) carga 10 álbumes de estudio de Taylor Swift con 5 cancio
 ├── frontend/index.html             — Frontend web SPA
 ├── frontend/css/styles.css         — Estilos (tema oscuro, responsive)
 ├── frontend/js/app.js              — Lógica del frontend
+├── frontend/llms.txt               — Resumen experimental orientado a sistemas de IA
+├── docs/openapi.yaml                — Especificación OpenAPI 3
+├── docs/INSOMNIA.md                 — Guía de pruebas del CRUD
+├── MEMORIA.md                       — Memoria y evidencias del proyecto
 ├── vercel.json                     — Configuración de deploy en Vercel
 └── README.md                       — Documentación completa
 ```
