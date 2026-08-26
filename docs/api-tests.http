@@ -1,0 +1,93 @@
+# Colección de pruebas manuales de la API
+# Compatible con REST Client para VS Code y con clientes que importan archivos HTTP.
+# Ejecuta primero npm start. Las variables capturan los IDs creados para completar
+# el flujo CRUD sin copiar y pegar identificadores.
+
+@baseUrl = http://localhost:3000/api
+
+### 1. Estado de la API
+GET {{baseUrl}}
+
+### 2. Listar álbumes y comprobar populate de songs
+GET {{baseUrl}}/albums
+
+### 3. Crear un álbum temporal
+# @name createAlbum
+POST {{baseUrl}}/albums
+Content-Type: application/json
+
+{
+  "title": "API Test Album",
+  "year": 2026,
+  "description": "Recurso temporal para demostrar el CRUD",
+  "era": "Testing",
+  "totalTracks": 1,
+  "label": "Academic Test"
+}
+
+### Guardar el ID del álbum creado
+@albumId = {{createAlbum.response.body.$.data._id}}
+
+### 4. Crear una canción y relacionarla automáticamente
+# @name createSong
+POST {{baseUrl}}/songs
+Content-Type: application/json
+
+{
+  "title": "API Test Song",
+  "author": "Taylor Swift",
+  "duration": "3:45",
+  "trackNumber": 1,
+  "album": "{{albumId}}",
+  "isPopular": false,
+  "year": 2026
+}
+
+### Guardar el ID de la canción creada
+@songId = {{createSong.response.body.$.data._id}}
+
+### 5. Consultar el álbum: songs debe contener la canción
+GET {{baseUrl}}/albums/{{albumId}}
+
+### 6. Volver a añadirla: $addToSet evita duplicar la referencia
+POST {{baseUrl}}/albums/{{albumId}}/songs/{{songId}}
+
+### 7. Actualizar el álbum enviando songs vacío
+# El controlador ignora songs y conserva la relación existente.
+PUT {{baseUrl}}/albums/{{albumId}}
+Content-Type: application/json
+
+{
+  "description": "Álbum actualizado sin perder sus canciones",
+  "songs": []
+}
+
+### 8. Comprobar que la canción sigue relacionada
+GET {{baseUrl}}/albums/{{albumId}}
+
+### 9. Actualizar la canción
+PUT {{baseUrl}}/songs/{{songId}}
+Content-Type: application/json
+
+{
+  "isPopular": true,
+  "duration": "3:50"
+}
+
+### 10. Probar filtros
+GET {{baseUrl}}/songs?title=API%20Test
+
+### 11. Probar un identificador no válido (debe responder 400)
+GET {{baseUrl}}/albums/id-no-valido
+
+### 12. ELIMINACIÓN: borrar la canción temporal
+DELETE {{baseUrl}}/songs/{{songId}}
+
+### 13. Comprobar que se retiró su referencia del álbum
+GET {{baseUrl}}/albums/{{albumId}}
+
+### 14. ELIMINACIÓN: borrar el álbum temporal
+DELETE {{baseUrl}}/albums/{{albumId}}
+
+### 15. Comprobar recurso inexistente (debe responder 404)
+GET {{baseUrl}}/albums/{{albumId}}

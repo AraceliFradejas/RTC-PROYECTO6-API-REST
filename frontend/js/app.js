@@ -409,6 +409,13 @@ function looksGeneratedCover(url = '') {
   return typeof url === 'string' && url.startsWith('data:image/svg+xml');
 }
 
+const FALLBACK_COVER = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22><rect fill=%22%2316161f%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%236b6a76%22 font-size=%2260%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎵</text></svg>';
+
+function isUsableCoverUrl(url = '') {
+  if (typeof url !== 'string') return false;
+  return /^https?:\/\//i.test(url) || url.startsWith('data:image/');
+}
+
 async function resolveRealAlbumCover(album) {
   if (!album || !album.title) return '';
 
@@ -416,7 +423,7 @@ async function resolveRealAlbumCover(album) {
     return coverCache.get(album.title);
   }
 
-  if (album.coverImage && !looksGeneratedCover(album.coverImage)) {
+  if (isUsableCoverUrl(album.coverImage) && !looksGeneratedCover(album.coverImage)) {
     coverCache.set(album.title, album.coverImage);
     return album.coverImage;
   }
@@ -442,7 +449,7 @@ async function resolveRealAlbumCover(album) {
     console.warn('No se pudo resolver portada real para', album.title, error);
   }
 
-  const fallback = album.coverImage || '';
+  const fallback = isUsableCoverUrl(album.coverImage) ? album.coverImage : FALLBACK_COVER;
   coverCache.set(album.title, fallback);
   return fallback;
 }
@@ -480,6 +487,7 @@ async function renderHeroCarousel(albums) {
     const image = createNode('img', {
       attrs: { src: album.resolvedCover, alt: `Portada ${album.title}`, loading: 'lazy' }
     });
+    image.addEventListener('error', () => { image.src = FALLBACK_COVER; }, { once: true });
     fragment.append(createNode('figure', { className: 'hero__carousel-item' }, [image]));
   });
   heroCarouselTrack.replaceChildren(fragment);
@@ -511,19 +519,18 @@ async function loadAlbums() {
 }
 
 function renderAlbums(albums) {
-  const fallbackCover = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22><rect fill=%22%2316161f%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%236b6a76%22 font-size=%2260%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🎵</text></svg>';
   const cards = albums.map((album, index) => {
     const isShowgirl = normalizeText(album.title || '') === normalizeText('The Life of a Showgirl');
     const image = createNode('img', {
       className: 'album-card__cover',
       attrs: {
         'data-album-id': album._id,
-        src: album.coverImage,
+        src: isUsableCoverUrl(album.coverImage) ? album.coverImage : FALLBACK_COVER,
         alt: `Portada del álbum ${album.title}`,
         loading: index < 4 ? 'eager' : 'lazy'
       }
     });
-    image.addEventListener('error', () => { image.src = fallbackCover; }, { once: true });
+    image.addEventListener('error', () => { image.src = FALLBACK_COVER; }, { once: true });
 
     const overlay = createNode('div', { className: 'album-card__overlay', attrs: { 'aria-hidden': 'true' } }, [
       createNode('div', { className: 'album-card__play', text: '▶' })
@@ -565,7 +572,11 @@ async function openAlbum(id) {
 
     const album = json.data;
 
-    modalCover.src = album.coverImage;
+    modalCover.src = isUsableCoverUrl(album.coverImage) ? album.coverImage : FALLBACK_COVER;
+    modalCover.onerror = () => {
+      modalCover.onerror = null;
+      modalCover.src = FALLBACK_COVER;
+    };
     const realCover = await resolveRealAlbumCover(album);
     if (realCover) {
       modalCover.src = realCover;

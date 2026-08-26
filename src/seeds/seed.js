@@ -532,45 +532,56 @@ const songsData = {
 const seedDB = async () => {
   try {
     await connectDB();
-    console.log('🗑️  Limpiando base de datos...');
-    await Album.deleteMany({});
-    await Song.deleteMany({});
-    console.log('✅ Base de datos limpia');
+    console.log('🎵 Creando o actualizando álbumes...');
+    const albums = [];
+    for (const albumData of albumsData) {
+      const album = await Album.findOneAndUpdate(
+        { title: albumData.title },
+        { $set: albumData, $setOnInsert: { songs: [] } },
+        { new: true, upsert: true, runValidators: true }
+      );
+      albums.push(album);
+    }
+    console.log(`✅ ${albums.length} álbumes procesados`);
 
-    console.log('🎵 Insertando álbumes...');
-    const createdAlbums = await Album.insertMany(albumsData);
-    console.log(`✅ ${createdAlbums.length} álbumes creados`);
-
-    console.log('🎶 Insertando canciones...');
+    console.log('🎶 Creando o actualizando canciones...');
     let totalSongs = 0;
 
-    for (const album of createdAlbums) {
+    for (const album of albums) {
       const albumSongs = songsData[album.title];
       if (!albumSongs) continue;
 
-      const songsWithAlbum = albumSongs.map((song) => ({
-        ...song,
-        album: album._id,
-        spotifyUrl: buildStreamingSearch(song.title, album.title).spotify,
-        appleMusicUrl: buildStreamingSearch(song.title, album.title).apple
-      }));
-
-      const createdSongs = await Song.insertMany(songsWithAlbum);
-      totalSongs += createdSongs.length;
-
-      const songIds = createdSongs.map((s) => s._id);
+      const songIds = [];
+      for (const songData of albumSongs) {
+        const streamingUrls = buildStreamingSearch(songData.title, album.title);
+        const song = await Song.findOneAndUpdate(
+          { album: album._id, trackNumber: songData.trackNumber },
+          {
+            $set: {
+              ...songData,
+              album: album._id,
+              spotifyUrl: streamingUrls.spotify,
+              appleMusicUrl: streamingUrls.apple
+            }
+          },
+          { new: true, upsert: true, runValidators: true }
+        );
+        songIds.push(song._id);
+      }
+      totalSongs += songIds.length;
       await Album.findByIdAndUpdate(album._id, {
-        $push: { songs: { $each: songIds } }
+        $addToSet: { songs: { $each: songIds } }
       });
 
-      console.log(`  📀 ${album.title} (${album.year}) → ${createdSongs.length} canciones`);
+      console.log(`  📀 ${album.title} (${album.year}) → ${songIds.length} canciones procesadas`);
     }
 
-    console.log(`\n🎉 Seed completado: ${createdAlbums.length} álbumes y ${totalSongs} canciones`);
-    process.exit(0);
+    console.log(`\n🎉 Seed completado: ${albums.length} álbumes y ${totalSongs} canciones procesadas`);
   } catch (error) {
     console.error('❌ Error en el seed:', error);
-    process.exit(1);
+    process.exitCode = 1;
+  } finally {
+    await mongoose.disconnect();
   }
 };
 

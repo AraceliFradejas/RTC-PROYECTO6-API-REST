@@ -1,8 +1,12 @@
 # Taylor Swift Discography API REST
 
-API REST y aplicación web para explorar y gestionar una selección de la discografía de Taylor Swift. Proyecto académico del módulo Backend Node + Mongo de Rock The Code, desarrollado con Node.js, Express, MongoDB Atlas y Mongoose.
+API REST para gestionar una selección de la discografía de Taylor Swift, acompañada de un frontend como anexo visual para explorar sus datos. Proyecto académico del módulo Backend Node + Mongo de Rock The Code, desarrollado con Node.js, Express, MongoDB Atlas y Mongoose.
+
+El frontend representa la experiencia de una persona usuaria que consulta la información sin acceder directamente al backend. Se mantiene deliberadamente como anexo: puede evolucionar mediante una mayor componentización y separación de JavaScript y CSS, mientras que el alcance evaluable de esta entrega se centra en la API REST.
 
 [Ver aplicación](https://ret-proyecto6-api-rest.vercel.app/) · [Consultar la API](https://ret-proyecto6-api-rest.vercel.app/api) · [Repositorio](https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST)
+
+[Memoria y evidencias del proyecto](MEMORIA.md)
 
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
@@ -19,7 +23,7 @@ Incluye:
 
 - servidor con Express y conexión a MongoDB Atlas mediante Mongoose;
 - modelos `Album` y `Song` y CRUD completo de ambos;
-- semilla con 16 álbumes y más de 90 canciones;
+- semilla idempotente con 16 álbumes y más de 90 canciones;
 - relación uno a muchos entre álbumes y canciones;
 - actualización de álbumes sin sobrescribir el array `songs`;
 - prevención de duplicados mediante `$addToSet`;
@@ -113,6 +117,21 @@ Content-Type: application/json
 }
 ```
 
+### Demostración y pruebas del CRUD
+
+El archivo [`docs/api-tests.http`](docs/api-tests.http) contiene un recorrido reproducible por el backend: estado de la API, lecturas, creación y actualización de ambos modelos, filtros, respuestas de error y eliminación de los recursos temporales.
+
+Para probarla con Insomnia, importa [`docs/openapi.yaml`](docs/openapi.yaml) mediante **Import → File**. Insomnia creará una colección con todos los endpoints y permitirá seleccionar el servidor local o el desplegado. El recorrido paso a paso y el uso de los IDs está explicado en [`docs/INSOMNIA.md`](docs/INSOMNIA.md). Para las operaciones de escritura se recomienda utilizar el servidor local.
+
+La prueba también demuestra expresamente los dos requisitos de la relación:
+
+- volver a relacionar la misma canción no duplica su referencia porque se utiliza `$addToSet`;
+- actualizar un álbum enviando `"songs": []` no borra las relaciones existentes.
+
+Puede ejecutarse desde VS Code con la extensión REST Client. Arranca primero la aplicación con `npm start` y ejecuta las peticiones en orden. El archivo utiliza recursos temporales y termina eliminándolos.
+
+> La API es pública con fines académicos. Las operaciones de escritura modifican datos reales; utiliza el flujo de pruebas en local o sobre una base de datos de desarrollo.
+
 ### Instalación local
 
 Requisitos: Node.js 18 o posterior y MongoDB Atlas.
@@ -137,6 +156,8 @@ En Atlas, configura el acceso de red que necesite el entorno de corrección. Si 
 npm run seed
 npm start
 ```
+
+La semilla utiliza operaciones `upsert`: puede ejecutarse varias veces sin vaciar las colecciones, duplicar referencias ni eliminar datos añadidos manualmente.
 
 La aplicación estará en `http://localhost:3000` y la API en `http://localhost:3000/api`. Para desarrollo con recarga automática, utiliza `npm run dev`.
 
@@ -194,7 +215,7 @@ Este proyecto es una entrega académica desarrollada con fines de formación den
 
 This REST API and web application organize albums and songs in two related MongoDB collections. Each album contains an array of song references, and album queries use Mongoose `populate` to return the related data.
 
-It includes an Express server, MongoDB Atlas with Mongoose, `Album` and `Song` models, complete CRUD operations, a seed with 16 albums and more than 90 songs, search filters, centralized error handling, a responsive Spanish/English frontend and Vercel deployment.
+It includes an Express server, MongoDB Atlas with Mongoose, `Album` and `Song` models, complete CRUD operations, an idempotent seed with 16 albums and more than 90 songs, search filters, centralized error handling, a responsive Spanish/English frontend and Vercel deployment.
 
 ### Live demo
 
@@ -206,6 +227,14 @@ It includes an Express server, MongoDB Atlas with Mongoose, `Album` and `Song` m
 ### Relationship behavior
 
 `Song.album` references an album, while `Album.songs` stores the related song IDs. Creating, moving or deleting a song keeps the album array synchronized. Album updates ignore a `songs` property in the request body, preventing accidental replacement, and `$addToSet` prevents duplicate references.
+
+### CRUD test flow
+
+[`docs/api-tests.http`](docs/api-tests.http) provides a reproducible request sequence covering both CRUDs, filters, error responses, relationship deduplication and preservation of the `songs` array during album updates. Start the local server and run the requests in order with VS Code REST Client. The sequence creates temporary resources and removes them at the end.
+
+For Insomnia, import [`docs/openapi.yaml`](docs/openapi.yaml) using **Import → File**. Insomnia will generate a request collection for every endpoint and offer both the local and deployed servers. The ID-based workflow is documented in [`docs/INSOMNIA.md`](docs/INSOMNIA.md). Use the local server for write operations.
+
+> This is a public academic API. Write operations change real data, so run the test flow locally or against a development database.
 
 ### API endpoints
 
@@ -243,6 +272,8 @@ Then run:
 npm run seed
 npm start
 ```
+
+The seed uses `upsert` operations, so it can run repeatedly without emptying collections, duplicating references or deleting manually added data.
 
 The app will be available at `http://localhost:3000`, with the API at `http://localhost:3000/api`.
 

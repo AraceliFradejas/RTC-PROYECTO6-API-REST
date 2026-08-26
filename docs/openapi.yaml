@@ -1,0 +1,237 @@
+openapi: 3.0.3
+info:
+  title: Taylor Swift Discography API
+  version: 1.0.0
+  description: API REST académica para gestionar álbumes y canciones relacionadas.
+servers:
+  - url: http://localhost:3000/api
+    description: Desarrollo local
+  - url: https://ret-proyecto6-api-rest.vercel.app/api
+    description: Producción
+tags:
+  - name: Albums
+  - name: Songs
+  - name: Relationship
+paths:
+  /:
+    get:
+      summary: Consultar el estado y los recursos de la API
+      responses:
+        '200':
+          description: API disponible
+  /albums:
+    get:
+      tags: [Albums]
+      summary: Listar y filtrar álbumes
+      parameters:
+        - { name: title, in: query, schema: { type: string } }
+        - { name: year, in: query, schema: { type: integer } }
+        - { name: era, in: query, schema: { type: string } }
+      responses:
+        '200':
+          description: Lista de álbumes con sus canciones relacionadas
+    post:
+      tags: [Albums]
+      summary: Crear un álbum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumCreateInput'
+            example:
+              title: API Test Album
+              year: 2026
+              description: Recurso temporal para demostrar el CRUD
+              era: Testing
+              totalTracks: 1
+              label: Academic Test
+      responses:
+        '201': { description: Álbum creado }
+        '400': { $ref: '#/components/responses/BadRequest' }
+  /albums/{id}:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+    get:
+      tags: [Albums]
+      summary: Consultar un álbum por ID
+      responses:
+        '200': { description: Álbum encontrado }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Albums]
+      summary: Actualizar un álbum sin sustituir su array de canciones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlbumUpdateInput'
+            example:
+              description: Álbum actualizado sin perder sus canciones
+              songs: []
+      responses:
+        '200': { description: Álbum actualizado; las relaciones se conservan }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Albums]
+      summary: Eliminar un álbum y sus canciones
+      responses:
+        '200': { description: Álbum eliminado }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /albums/{id}/songs/{songId}:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+      - name: songId
+        in: path
+        required: true
+        description: Sustituye este valor por el `_id` real devuelto al crear o listar una canción
+        example: '000000000000000000000000'
+        schema: { type: string, pattern: '^[a-fA-F0-9]{24}$' }
+    post:
+      tags: [Relationship]
+      summary: Añadir una referencia sin duplicarla
+      responses:
+        '200': { description: Relación añadida o ya existente }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Relationship]
+      summary: Retirar una referencia desvinculada
+      responses:
+        '200': { description: Referencia retirada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /songs:
+    get:
+      tags: [Songs]
+      summary: Listar y filtrar canciones
+      parameters:
+        - { name: title, in: query, schema: { type: string } }
+        - { name: author, in: query, schema: { type: string } }
+        - { name: year, in: query, schema: { type: integer } }
+      responses:
+        '200': { description: Lista de canciones con su álbum relacionado }
+    post:
+      tags: [Songs]
+      summary: Crear una canción y relacionarla con un álbum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SongCreateInput'
+            example:
+              title: API Test Song
+              author: Taylor Swift
+              duration: '3:45'
+              trackNumber: 1
+              album: ID_DEL_ALBUM
+              isPopular: false
+              year: 2026
+      responses:
+        '201': { description: Canción creada y relacionada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /songs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/ResourceId'
+    get:
+      tags: [Songs]
+      summary: Consultar una canción por ID
+      responses:
+        '200': { description: Canción encontrada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [Songs]
+      summary: Actualizar una canción y sincronizar su álbum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SongUpdateInput'
+            example:
+              isPopular: true
+              duration: '3:50'
+      responses:
+        '200': { description: Canción actualizada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Songs]
+      summary: Eliminar una canción y retirar su referencia del álbum
+      responses:
+        '200': { description: Canción eliminada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+components:
+  parameters:
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: Sustituye este valor por el `_id` real devuelto al crear o listar el recurso
+      example: '000000000000000000000000'
+      schema: { type: string, pattern: '^[a-fA-F0-9]{24}$' }
+  responses:
+    BadRequest:
+      description: Datos o identificador no válidos
+    NotFound:
+      description: Recurso no encontrado
+  schemas:
+    AlbumCreateInput:
+      type: object
+      required: [title, year]
+      properties:
+        title: { type: string }
+        year: { type: integer }
+        coverImage: { type: string }
+        description: { type: string }
+        era: { type: string }
+        eraColor: { type: string }
+        totalTracks: { type: integer }
+        label: { type: string }
+    AlbumUpdateInput:
+      type: object
+      description: El controlador ignora `songs` si se recibe, protegiendo las relaciones existentes.
+      properties:
+        title: { type: string }
+        year: { type: integer }
+        coverImage: { type: string }
+        description: { type: string }
+        era: { type: string }
+        eraColor: { type: string }
+        totalTracks: { type: integer }
+        label: { type: string }
+    SongCreateInput:
+      type: object
+      required: [title, author, album]
+      properties:
+        title: { type: string }
+        author: { type: string }
+        duration: { type: string }
+        trackNumber: { type: integer, minimum: 1 }
+        album: { type: string, description: ObjectId del álbum }
+        isPopular: { type: boolean }
+        lyrics: { type: string }
+        year: { type: integer }
+        spotifyUrl: { type: string }
+        appleMusicUrl: { type: string }
+    SongUpdateInput:
+      type: object
+      properties:
+        title: { type: string }
+        author: { type: string }
+        duration: { type: string }
+        trackNumber: { type: integer, minimum: 1 }
+        album: { type: string, description: ObjectId del álbum }
+        isPopular: { type: boolean }
+        lyrics: { type: string }
+        year: { type: integer }
+        spotifyUrl: { type: string }
+        appleMusicUrl: { type: string }
