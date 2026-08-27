@@ -2,7 +2,9 @@
 
 API REST para gestionar una selección de la discografía de Taylor Swift, acompañada de un frontend como anexo visual para explorar sus datos. Proyecto académico del módulo Backend Node + Mongo de Rock The Code, desarrollado con Node.js, Express, MongoDB Atlas y Mongoose.
 
-El frontend representa la experiencia de una persona usuaria que consulta la información sin acceder directamente al backend. Se mantiene deliberadamente como anexo: puede evolucionar mediante una mayor componentización y separación de JavaScript y CSS, mientras que el alcance evaluable de esta entrega se centra en la API REST.
+El frontend representa la experiencia de una persona usuaria que consulta la información sin acceder directamente al backend. Está organizado con módulos ES y componentes reutilizables en Vanilla JavaScript, manteniendo separadas la interfaz, la lógica de negocio, el acceso a la API y las utilidades.
+
+En esta versión se han aplicado de forma consciente correcciones y lecciones aprendidas en proyectos anteriores del máster gracias a las recomendaciones del profesorado: componentización, archivos más pequeños, una única estrategia segura para crear DOM, eliminación de código y recursos sin uso, estilos organizados por responsabilidad, semántica HTML, foco accesible, contenido bilingüe coherente y metadatos SEO.
 
 [Ver aplicación](https://ret-proyecto6-api-rest.vercel.app/) · [Consultar la API](https://ret-proyecto6-api-rest.vercel.app/api) · [Repositorio](https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST)
 
@@ -200,8 +202,16 @@ La aplicación estará en `http://localhost:3000` y la API en `http://localhost:
 ```text
 .
 ├── frontend/
-│   ├── css/styles.css
-│   ├── js/app.js
+│   ├── css/
+│   │   ├── components/   # Estilos separados por área visual
+│   │   ├── base.css      # Reset, variables y utilidades globales
+│   │   └── styles.css    # Punto de entrada de la cascada
+│   ├── js/
+│   │   ├── components/    # Componentes y controladores de interfaz
+│   │   ├── services/      # API, búsqueda y portadas
+│   │   ├── utils/         # DOM y tratamiento de texto
+│   │   ├── app.js         # Punto de entrada
+│   │   └── i18n.js        # Textos ES/EN
 │   └── index.html
 ├── src/
 │   ├── config/db.js
@@ -214,6 +224,8 @@ La aplicación estará en `http://localhost:3000` y la API en `http://localhost:
 ├── package.json
 └── vercel.json
 ```
+
+El punto de entrada solo compone las dependencias. Las tarjetas de álbum, resultados, modal, buscador, navegación y carrusel son módulos independientes; el acceso HTTP está centralizado en `services/api.js`. Esta separación permite modificar o probar cada responsabilidad sin convertir `app.js` en un archivo monolítico.
 
 ### Tecnologías
 
@@ -248,6 +260,10 @@ Este proyecto es una entrega académica desarrollada con fines de formación den
 This REST API and web application organize albums and songs in two related MongoDB collections. Each album contains an array of song references, and album queries use Mongoose `populate` to return the related data.
 
 It includes an Express server, MongoDB Atlas with Mongoose, `Album` and `Song` models, complete CRUD operations, an idempotent seed with 16 albums and more than 90 songs, search filters, centralized error handling, a responsive Spanish/English frontend and Vercel deployment.
+
+This version consciously applies corrections and lessons learned from earlier projects in the master's program thanks to the teaching staff's feedback: reusable components, smaller files, consistent and safe DOM creation, removal of unused code and assets, responsibility-based CSS organization, semantic HTML, accessible focus states, coherent bilingual rendering and SEO metadata.
+
+The frontend uses native ES modules. UI components, API and search services, translations and shared utilities are kept in separate folders, while `app.js` is limited to composing and initializing them.
 
 ### Live demo
 

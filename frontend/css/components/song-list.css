@@ -1,0 +1,97 @@
+.modal__songs-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.modal__songs-list {
+  list-style: none;
+}
+
+.modal__song {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+}
+
+.modal__song:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.modal__song:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.modal__song-number {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  min-width: 1.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal__song-info {
+  flex: 1;
+}
+
+.modal__song-actions,
+.search-result-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.modal__song-link,
+.search-result-card__link {
+  text-decoration: none;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.modal__song-link.apple,
+.search-result-card__link.apple {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.modal__song-link:hover,
+.search-result-card__link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(212, 160, 200, 0.8);
+}
+
+.modal__song-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.modal__song-author {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.modal__song-duration {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal__song-badge {
+  font-size: 0.65rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

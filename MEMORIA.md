@@ -24,7 +24,7 @@ Mongoose models
 MongoDB Atlas
 ```
 
-El proyecto separa configuración, modelos, controladores, rutas, middleware, semilla y frontend. La conexión se establece mediante `MONGO_URI`, almacenada fuera del repositorio.
+El proyecto separa configuración, modelos, controladores, rutas, middleware, semilla y frontend. Dentro del frontend también se separan componentes de interfaz, servicios, traducciones, utilidades y estilos por responsabilidad. La conexión se establece mediante `MONGO_URI`, almacenada fuera del repositorio.
 
 ## 3. Modelos y relación
 
@@ -156,7 +156,9 @@ Está desarrollado con HTML, CSS y JavaScript nativo y consume exclusivamente la
 - alternar el contenido entre castellano e inglés;
 - comunicar estados de carga, resultados vacíos y errores de conexión.
 
-La creación de elementos DOM se centraliza en una función auxiliar y las distintas partes de la interfaz se organizan mediante funciones de renderizado. Las imágenes se validan antes de mostrarse: si una portada está vacía o contiene una URL inválida, se utiliza una imagen de sustitución para conservar el diseño de las tarjetas, el carrusel y el modal.
+La creación de elementos dinámicos se centraliza en una función auxiliar basada en `document.createElement()`, `textContent` y atributos DOM, sin inyectar plantillas HTML mediante strings. Las tarjetas de álbum, resultados, acciones de canciones, modal, buscador, navegación y carrusel son componentes independientes. Los servicios de API, búsqueda y resolución de portadas tampoco están mezclados con la representación visual. El archivo `app.js` queda limitado a componer e inicializar estas piezas.
+
+El CSS se divide en un punto de entrada, estilos base y módulos por área visual. Esta organización evita un archivo monolítico y facilita localizar los estilos del hero, navegación, búsqueda, álbumes, modal, canciones, sección informativa y responsive. Las imágenes se validan antes de mostrarse: si una portada está vacía o contiene una URL inválida, se utiliza una imagen de sustitución para conservar el diseño de las tarjetas, el carrusel y el modal.
 
 Como apoyo a la accesibilidad y al posicionamiento, el anexo emplea HTML semántico, textos alternativos, atributos ARIA, metadatos sociales, `robots.txt` y `sitemap.xml`.
 
@@ -166,7 +168,9 @@ Como parte de mi aprendizaje sobre GEO (*Generative Engine Optimization*), incor
 
 Su inclusión es exploratoria: `llms.txt` no sustituye el README, la especificación OpenAPI, el sitemap ni las prácticas habituales de SEO, y su interpretación puede variar entre herramientas. En este proyecto se utiliza como ejercicio práctico para estudiar nuevas formas de hacer que la documentación técnica resulte comprensible y localizable tanto para personas como para asistentes de IA.
 
-La interfaz está deliberadamente separada del recorrido de evaluación del backend: las operaciones `POST`, `PUT` y `DELETE` se documentan y demuestran con Insomnia. El frontend admite una evolución importante en componentización, separación de módulos JavaScript y organización del CSS. En esta entrega se mantuvo como anexo porque el objetivo académico era construir y demostrar la API REST; esa reorganización mejoraría su mantenimiento y escalabilidad sin afectar al funcionamiento del backend.
+La interfaz está deliberadamente separada del recorrido de evaluación del backend: las operaciones `POST`, `PUT` y `DELETE` se documentan y demuestran con Insomnia. Aunque se mantiene como anexo porque el objetivo académico principal es construir y demostrar la API REST, el frontend se ha refactorizado para que sea mantenible y escalable.
+
+Esta revisión aplica de forma consciente correcciones y lecciones aprendidas en proyectos anteriores del máster gracias a los consejos del profesorado. Entre ellas se encuentran la componentización, la reducción de archivos extensos, la reutilización de utilidades, una estrategia DOM coherente y segura, la eliminación de código o recursos sin uso, el CSS separado por responsabilidades, la semántica HTML, los estados de foco accesibles, el cambio real de idioma y el uso de metadatos SEO. Las observaciones específicas de otros tipos de aplicación, como reinicios de puntuación o estados de partidas, no se trasladan artificialmente porque no corresponden al alcance de este proyecto.
 
 ## 9. Cumplimiento de requisitos
 
@@ -184,4 +188,4 @@ La interfaz está deliberadamente separada del recorrido de evaluación del back
 
 ## 10. Conclusiones
 
-El proyecto cumple los requisitos de una API REST con dos colecciones relacionadas y aporta comprobaciones reproducibles de sus operaciones. La principal dificultad fue mantener sincronizadas las dos direcciones de la relación sin borrar ni duplicar referencias. El recorrido de Insomnia demuestra tanto los casos correctos como el tratamiento centralizado de errores.
+El proyecto cumple los requisitos de una API REST con dos colecciones relacionadas y aporta comprobaciones reproducibles de sus operaciones. La principal dificultad fue mantener sincronizadas las dos direcciones de la relación sin borrar ni duplicar referencias. El recorrido de Insomnia demuestra tanto los casos correctos como el tratamiento centralizado de errores. La revisión final del anexo visual demuestra además cómo el feedback acumulado durante el máster se ha convertido en decisiones concretas de arquitectura, accesibilidad, mantenibilidad y calidad del frontend.
