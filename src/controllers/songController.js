@@ -83,6 +83,8 @@ const updateSong = async (req, res, next) => {
 
     await Album.findByIdAndUpdate(song.album, { $addToSet: { songs: song._id } });
 
+    await song.populate('album', 'title year era eraColor coverImage');
+
     res.status(200).json({ success: true, data: song });
   } catch (error) {
     next(error);

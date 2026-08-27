@@ -6,6 +6,8 @@ El frontend representa la experiencia de una persona usuaria que consulta la inf
 
 En esta versión se han aplicado de forma consciente correcciones y lecciones aprendidas en proyectos anteriores del máster gracias a las recomendaciones del profesorado: componentización, archivos más pequeños, una única estrategia segura para crear DOM, eliminación de código y recursos sin uso, estilos organizados por responsabilidad, semántica HTML, foco accesible, contenido bilingüe coherente y metadatos SEO.
 
+La revisión final del profesorado confirmó el cumplimiento completo —y en varios aspectos sobresaliente— de los requisitos del proyecto. A partir de sus observaciones finales también se homogeneizó la respuesta de `updateSong` mediante `populate` y se revisó íntegramente la semilla: se sustituyeron pistas repetidas o de relleno por tracklists coherentes y se añadió una validación automática contra títulos, números de pista y conteos duplicados.
+
 [Ver aplicación](https://ret-proyecto6-api-rest.vercel.app/) · [Consultar la API](https://ret-proyecto6-api-rest.vercel.app/api) · [Repositorio](https://github.com/AraceliFradejas/RTC-PROYECTO6-API-REST)
 
 [Memoria y evidencias del proyecto](MEMORIA.md)
@@ -193,6 +195,8 @@ npm start
 
 La semilla utiliza operaciones `upsert`: puede ejecutarse varias veces sin vaciar las colecciones, duplicar referencias ni eliminar datos añadidos manualmente.
 
+Antes de conectarse a MongoDB, la semilla comprueba que cada álbum tenga títulos y números de pista únicos y que el número de canciones coincida con `totalTracks`. Si los datos no son coherentes, el proceso se detiene con un mensaje descriptivo.
+
 La aplicación estará en `http://localhost:3000` y la API en `http://localhost:3000/api`. Para desarrollo con recarga automática, utiliza `npm run dev`.
 
 > El `.env` contiene credenciales y no se publica. Las variables de producción se configuran en Vercel y las credenciales de corrección se comparten únicamente por el canal privado del centro.
@@ -264,6 +268,8 @@ It includes an Express server, MongoDB Atlas with Mongoose, `Album` and `Song` m
 This version consciously applies corrections and lessons learned from earlier projects in the master's program thanks to the teaching staff's feedback: reusable components, smaller files, consistent and safe DOM creation, removal of unused code and assets, responsibility-based CSS organization, semantic HTML, accessible focus states, coherent bilingual rendering and SEO metadata.
 
 The frontend uses native ES modules. UI components, API and search services, translations and shared utilities are kept in separate folders, while `app.js` is limited to composing and initializing them.
+
+The teaching staff's final review confirmed that the project fully meets the requirements, with several areas assessed above expectations. The final observations were also applied: `updateSong` now populates its album consistently, the seed tracklists were cleaned up, and automatic validation prevents duplicate titles, duplicate track numbers and mismatched album totals.
 
 ### Live demo
 

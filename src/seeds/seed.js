@@ -285,66 +285,66 @@ const songsData = {
     { title: 'Haunted (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:02', trackNumber: 12, isPopular: false, year: 2023 },
     { title: 'Last Kiss (Taylor\'s Version)', author: 'Taylor Swift', duration: '6:08', trackNumber: 13, isPopular: false, year: 2023 },
     { title: 'Long Live (Taylor\'s Version)', author: 'Taylor Swift', duration: '5:58', trackNumber: 14, isPopular: true, year: 2023 },
-    { title: 'Ours (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:23', trackNumber: 15, isPopular: false, year: 2023 },
-    { title: 'If This Was a Movie (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:44', trackNumber: 16, isPopular: true, year: 2023 },
-    { title: 'I Can See You (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:39', trackNumber: 17, isPopular: true, year: 2023 },
-    { title: 'Superman (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:42', trackNumber: 18, isPopular: false, year: 2023 },
-    { title: 'Electric Touch (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:30', trackNumber: 19, isPopular: true, year: 2023 },
-    { title: 'When Emma Falls in Love (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:32', trackNumber: 20, isPopular: false, year: 2023 },
-    { title: 'The Story of Us (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:26', trackNumber: 21, isPopular: true, year: 2023 },
-    { title: 'I Can See You (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:39', trackNumber: 22, isPopular: true, year: 2023 }
+    { title: 'Ours (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:55', trackNumber: 15, isPopular: false, year: 2023 },
+    { title: 'Superman (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:34', trackNumber: 16, isPopular: false, year: 2023 },
+    { title: 'Electric Touch (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift, Fall Out Boy', duration: '4:26', trackNumber: 17, isPopular: true, year: 2023 },
+    { title: 'When Emma Falls in Love (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '4:12', trackNumber: 18, isPopular: false, year: 2023 },
+    { title: 'I Can See You (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '4:33', trackNumber: 19, isPopular: true, year: 2023 },
+    { title: 'Castles Crumbling (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift, Hayley Williams', duration: '5:06', trackNumber: 20, isPopular: false, year: 2023 },
+    { title: 'Foolish One (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '5:11', trackNumber: 21, isPopular: false, year: 2023 },
+    { title: 'Timeless (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '5:21', trackNumber: 22, isPopular: true, year: 2023 }
   ],
 
   'Red': [
-    { title: 'Red', author: 'Taylor Swift', duration: '3:43', trackNumber: 1, isPopular: true, year: 2012 },
-    { title: 'The Last Time', author: 'Taylor Swift', duration: '4:59', trackNumber: 2, isPopular: true, year: 2012 },
-    { title: '22', author: 'Taylor Swift', duration: '3:52', trackNumber: 3, isPopular: true, year: 2012 },
+    { title: 'State of Grace', author: 'Taylor Swift', duration: '4:55', trackNumber: 1, isPopular: true, year: 2012 },
+    { title: 'Red', author: 'Taylor Swift', duration: '3:43', trackNumber: 2, isPopular: true, year: 2012 },
+    { title: 'Treacherous', author: 'Taylor Swift', duration: '4:02', trackNumber: 3, isPopular: false, year: 2012 },
     { title: 'I Knew You Were Trouble', author: 'Taylor Swift', duration: '3:39', trackNumber: 4, isPopular: true, year: 2012 },
     { title: 'All Too Well', author: 'Taylor Swift', duration: '5:29', trackNumber: 5, isPopular: true, year: 2012 },
-    { title: 'I Almost Do', author: 'Taylor Swift', duration: '4:04', trackNumber: 6, isPopular: false, year: 2012 },
-    { title: 'Stay Stay Stay', author: 'Taylor Swift', duration: '4:42', trackNumber: 7, isPopular: false, year: 2012 },
-    { title: 'The Moment I Knew', author: 'Taylor Swift', duration: '4:46', trackNumber: 8, isPopular: false, year: 2012 },
-    { title: 'Come Back...Be Here', author: 'Taylor Swift', duration: '3:43', trackNumber: 9, isPopular: false, year: 2012 },
-    { title: 'Girl at Home', author: 'Taylor Swift', duration: '3:15', trackNumber: 10, isPopular: false, year: 2012 },
-    { title: 'The Lucky One', author: 'Taylor Swift', duration: '4:00', trackNumber: 11, isPopular: false, year: 2012 },
-    { title: 'We Are Never Ever Getting Back Together', author: 'Taylor Swift', duration: '3:13', trackNumber: 12, isPopular: true, year: 2012 },
-    { title: 'Begin Again', author: 'Taylor Swift', duration: '3:58', trackNumber: 13, isPopular: true, year: 2012 },
-    { title: 'I Wish You Would', author: 'Taylor Swift', duration: '3:27', trackNumber: 14, isPopular: false, year: 2012 },
-    { title: 'Red', author: 'Taylor Swift', duration: '3:43', trackNumber: 15, isPopular: true, year: 2012 },
-    { title: '22', author: 'Taylor Swift', duration: '3:52', trackNumber: 16, isPopular: true, year: 2012 }
+    { title: '22', author: 'Taylor Swift', duration: '3:52', trackNumber: 6, isPopular: true, year: 2012 },
+    { title: 'I Almost Do', author: 'Taylor Swift', duration: '4:04', trackNumber: 7, isPopular: false, year: 2012 },
+    { title: 'We Are Never Ever Getting Back Together', author: 'Taylor Swift', duration: '3:13', trackNumber: 8, isPopular: true, year: 2012 },
+    { title: 'Stay Stay Stay', author: 'Taylor Swift', duration: '3:25', trackNumber: 9, isPopular: false, year: 2012 },
+    { title: 'The Last Time', author: 'Taylor Swift, Gary Lightbody', duration: '4:59', trackNumber: 10, isPopular: true, year: 2012 },
+    { title: 'Holy Ground', author: 'Taylor Swift', duration: '3:22', trackNumber: 11, isPopular: true, year: 2012 },
+    { title: 'Sad Beautiful Tragic', author: 'Taylor Swift', duration: '4:44', trackNumber: 12, isPopular: false, year: 2012 },
+    { title: 'The Lucky One', author: 'Taylor Swift', duration: '4:00', trackNumber: 13, isPopular: false, year: 2012 },
+    { title: 'Everything Has Changed', author: 'Taylor Swift, Ed Sheeran', duration: '4:05', trackNumber: 14, isPopular: true, year: 2012 },
+    { title: 'Starlight', author: 'Taylor Swift', duration: '3:40', trackNumber: 15, isPopular: false, year: 2012 },
+    { title: 'Begin Again', author: 'Taylor Swift', duration: '3:58', trackNumber: 16, isPopular: true, year: 2012 }
   ],
 
   'Red (Taylor\'s Version)': [
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 1, isPopular: true, year: 2021 },
-    { title: 'The Last Time (Taylor\'s Version)', author: 'Taylor Swift, Gary Lightbody', duration: '4:59', trackNumber: 2, isPopular: true, year: 2021 },
-    { title: '22 (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:52', trackNumber: 3, isPopular: true, year: 2021 },
+    { title: 'State of Grace (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:55', trackNumber: 1, isPopular: true, year: 2021 },
+    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 2, isPopular: true, year: 2021 },
+    { title: 'Treacherous (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:02', trackNumber: 3, isPopular: false, year: 2021 },
     { title: 'I Knew You Were Trouble (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:39', trackNumber: 4, isPopular: true, year: 2021 },
-    { title: 'All Too Well (Taylor\'s Version)', author: 'Taylor Swift', duration: '10:13', trackNumber: 5, isPopular: true, year: 2021 },
-    { title: 'I Almost Do (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:04', trackNumber: 6, isPopular: false, year: 2021 },
-    { title: 'Stay Stay Stay (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:42', trackNumber: 7, isPopular: false, year: 2021 },
-    { title: 'The Moment I Knew (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:46', trackNumber: 8, isPopular: false, year: 2021 },
-    { title: 'Come Back...Be Here (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 9, isPopular: false, year: 2021 },
-    { title: 'Girl at Home (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:15', trackNumber: 10, isPopular: false, year: 2021 },
-    { title: 'The Lucky One (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:00', trackNumber: 11, isPopular: false, year: 2021 },
-    { title: 'We Are Never Ever Getting Back Together (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:13', trackNumber: 12, isPopular: true, year: 2021 },
-    { title: 'Begin Again (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:58', trackNumber: 13, isPopular: true, year: 2021 },
-    { title: 'I Bet You Think About Me (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:45', trackNumber: 14, isPopular: true, year: 2021 },
-    { title: 'Babe (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:44', trackNumber: 15, isPopular: false, year: 2021 },
-    { title: 'Forever Winter (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:22', trackNumber: 16, isPopular: false, year: 2021 },
-    { title: 'The Moment I Knew (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:46', trackNumber: 17, isPopular: false, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 18, isPopular: true, year: 2021 },
-    { title: 'I Knew You Were Trouble (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:39', trackNumber: 19, isPopular: true, year: 2021 },
-    { title: '22 (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:52', trackNumber: 20, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 21, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 22, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 23, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 24, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 25, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 26, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 27, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 28, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 29, isPopular: true, year: 2021 },
-    { title: 'Red (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 30, isPopular: true, year: 2021 }
+    { title: 'All Too Well (Taylor\'s Version)', author: 'Taylor Swift', duration: '5:29', trackNumber: 5, isPopular: true, year: 2021 },
+    { title: '22 (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:52', trackNumber: 6, isPopular: true, year: 2021 },
+    { title: 'I Almost Do (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:04', trackNumber: 7, isPopular: false, year: 2021 },
+    { title: 'We Are Never Ever Getting Back Together (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:13', trackNumber: 8, isPopular: true, year: 2021 },
+    { title: 'Stay Stay Stay (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:25', trackNumber: 9, isPopular: false, year: 2021 },
+    { title: 'The Last Time (Taylor\'s Version)', author: 'Taylor Swift, Gary Lightbody', duration: '4:59', trackNumber: 10, isPopular: true, year: 2021 },
+    { title: 'Holy Ground (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:22', trackNumber: 11, isPopular: true, year: 2021 },
+    { title: 'Sad Beautiful Tragic (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:44', trackNumber: 12, isPopular: false, year: 2021 },
+    { title: 'The Lucky One (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:00', trackNumber: 13, isPopular: false, year: 2021 },
+    { title: 'Everything Has Changed (Taylor\'s Version)', author: 'Taylor Swift, Ed Sheeran', duration: '4:05', trackNumber: 14, isPopular: true, year: 2021 },
+    { title: 'Starlight (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:40', trackNumber: 15, isPopular: false, year: 2021 },
+    { title: 'Begin Again (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:58', trackNumber: 16, isPopular: true, year: 2021 },
+    { title: 'The Moment I Knew (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:45', trackNumber: 17, isPopular: false, year: 2021 },
+    { title: 'Come Back...Be Here (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:43', trackNumber: 18, isPopular: false, year: 2021 },
+    { title: 'Girl at Home (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:40', trackNumber: 19, isPopular: false, year: 2021 },
+    { title: 'State of Grace (Acoustic Version) (Taylor\'s Version)', author: 'Taylor Swift', duration: '5:21', trackNumber: 20, isPopular: false, year: 2021 },
+    { title: 'Ronan (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:24', trackNumber: 21, isPopular: false, year: 2021 },
+    { title: 'Better Man (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '4:57', trackNumber: 22, isPopular: true, year: 2021 },
+    { title: 'Nothing New (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift, Phoebe Bridgers', duration: '4:18', trackNumber: 23, isPopular: true, year: 2021 },
+    { title: 'Babe (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '3:44', trackNumber: 24, isPopular: false, year: 2021 },
+    { title: 'Message in a Bottle (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '3:45', trackNumber: 25, isPopular: true, year: 2021 },
+    { title: 'I Bet You Think About Me (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift, Chris Stapleton', duration: '4:45', trackNumber: 26, isPopular: true, year: 2021 },
+    { title: 'Forever Winter (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '4:23', trackNumber: 27, isPopular: false, year: 2021 },
+    { title: 'Run (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift, Ed Sheeran', duration: '4:00', trackNumber: 28, isPopular: false, year: 2021 },
+    { title: 'The Very First Night (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '3:20', trackNumber: 29, isPopular: true, year: 2021 },
+    { title: 'All Too Well (10 Minute Version) (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '10:13', trackNumber: 30, isPopular: true, year: 2021 }
   ],
 
   '1989': [
@@ -380,11 +380,11 @@ const songsData = {
     { title: 'Wonderland (Taylor\'s Version)', author: 'Taylor Swift', duration: '2:12', trackNumber: 14, isPopular: false, year: 2023 },
     { title: 'You Are In Love (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:27', trackNumber: 15, isPopular: true, year: 2023 },
     { title: 'New Romantics (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:50', trackNumber: 16, isPopular: true, year: 2023 },
-    { title: 'I Know Places (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:15', trackNumber: 17, isPopular: false, year: 2023 },
-    { title: 'Clean (Taylor\'s Version)', author: 'Taylor Swift', duration: '4:31', trackNumber: 18, isPopular: false, year: 2023 },
-    { title: 'Wonderland (Taylor\'s Version)', author: 'Taylor Swift', duration: '2:12', trackNumber: 19, isPopular: false, year: 2023 },
-    { title: 'New Romantics (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:50', trackNumber: 20, isPopular: true, year: 2023 },
-    { title: 'Bad Blood (Taylor\'s Version)', author: 'Taylor Swift', duration: '3:19', trackNumber: 21, isPopular: true, year: 2023 }
+    { title: '\"Slut!\" (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '3:00', trackNumber: 17, isPopular: true, year: 2023 },
+    { title: 'Say Don\'t Go (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '4:39', trackNumber: 18, isPopular: true, year: 2023 },
+    { title: 'Now That We Don\'t Talk (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '2:26', trackNumber: 19, isPopular: true, year: 2023 },
+    { title: 'Suburban Legends (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '2:51', trackNumber: 20, isPopular: false, year: 2023 },
+    { title: 'Is It Over Now? (Taylor\'s Version) (From the Vault)', author: 'Taylor Swift', duration: '3:49', trackNumber: 21, isPopular: true, year: 2023 }
   ],
 
   'Reputation': [
@@ -400,49 +400,49 @@ const songsData = {
     { title: 'King of My Heart', author: 'Taylor Swift', duration: '3:34', trackNumber: 10, isPopular: false, year: 2017 },
     { title: 'Dancing with Our Hands Tied', author: 'Taylor Swift', duration: '3:31', trackNumber: 11, isPopular: false, year: 2017 },
     { title: 'Dress', author: 'Taylor Swift', duration: '3:50', trackNumber: 12, isPopular: true, year: 2017 },
-    { title: 'New Year\'s Day', author: 'Taylor Swift', duration: '3:55', trackNumber: 13, isPopular: false, year: 2017 },
+    { title: 'This Is Why We Can\'t Have Nice Things', author: 'Taylor Swift', duration: '3:27', trackNumber: 13, isPopular: true, year: 2017 },
     { title: 'Call It What You Want', author: 'Taylor Swift', duration: '3:23', trackNumber: 14, isPopular: true, year: 2017 },
-    { title: 'I Did Something Bad', author: 'Taylor Swift', duration: '3:58', trackNumber: 15, isPopular: true, year: 2017 }
+    { title: 'New Year\'s Day', author: 'Taylor Swift', duration: '3:55', trackNumber: 15, isPopular: false, year: 2017 }
   ],
 
   'Lover': [
-    { title: 'I Think He Knows', author: 'Taylor Swift', duration: '2:44', trackNumber: 1, isPopular: false, year: 2019 },
-    { title: 'The Man', author: 'Taylor Swift', duration: '3:10', trackNumber: 2, isPopular: true, year: 2019 },
-    { title: 'I Forgot That You Existed', author: 'Taylor Swift', duration: '2:51', trackNumber: 3, isPopular: true, year: 2019 },
-    { title: 'Cruel Summer', author: 'Taylor Swift', duration: '2:58', trackNumber: 4, isPopular: true, year: 2019 },
-    { title: 'Lover', author: 'Taylor Swift', duration: '3:41', trackNumber: 5, isPopular: true, year: 2019 },
-    { title: 'The Archer', author: 'Taylor Swift', duration: '3:31', trackNumber: 6, isPopular: false, year: 2019 },
-    { title: 'Cornelia Street', author: 'Taylor Swift', duration: '4:47', trackNumber: 7, isPopular: true, year: 2019 },
-    { title: 'Death by a Thousand Cuts', author: 'Taylor Swift', duration: '3:18', trackNumber: 8, isPopular: true, year: 2019 },
-    { title: 'London Boy', author: 'Taylor Swift', duration: '3:10', trackNumber: 9, isPopular: true, year: 2019 },
-    { title: 'Sparks Fly', author: 'Taylor Swift', duration: '4:20', trackNumber: 10, isPopular: false, year: 2019 },
-    { title: 'New Romantics', author: 'Taylor Swift', duration: '3:50', trackNumber: 11, isPopular: true, year: 2019 },
-    { title: 'I Wish You Would', author: 'Taylor Swift', duration: '3:27', trackNumber: 12, isPopular: false, year: 2019 },
-    { title: 'You Need to Calm Down', author: 'Taylor Swift', duration: '2:51', trackNumber: 13, isPopular: true, year: 2019 },
-    { title: 'ME!', author: 'Taylor Swift', duration: '3:13', trackNumber: 14, isPopular: true, year: 2019 },
+    { title: 'I Forgot That You Existed', author: 'Taylor Swift', duration: '2:51', trackNumber: 1, isPopular: true, year: 2019 },
+    { title: 'Cruel Summer', author: 'Taylor Swift', duration: '2:58', trackNumber: 2, isPopular: true, year: 2019 },
+    { title: 'Lover', author: 'Taylor Swift', duration: '3:41', trackNumber: 3, isPopular: true, year: 2019 },
+    { title: 'The Man', author: 'Taylor Swift', duration: '3:10', trackNumber: 4, isPopular: true, year: 2019 },
+    { title: 'The Archer', author: 'Taylor Swift', duration: '3:31', trackNumber: 5, isPopular: false, year: 2019 },
+    { title: 'I Think He Knows', author: 'Taylor Swift', duration: '2:44', trackNumber: 6, isPopular: false, year: 2019 },
+    { title: 'Miss Americana & the Heartbreak Prince', author: 'Taylor Swift', duration: '3:54', trackNumber: 7, isPopular: true, year: 2019 },
+    { title: 'Paper Rings', author: 'Taylor Swift', duration: '3:42', trackNumber: 8, isPopular: true, year: 2019 },
+    { title: 'Cornelia Street', author: 'Taylor Swift', duration: '4:47', trackNumber: 9, isPopular: true, year: 2019 },
+    { title: 'Death by a Thousand Cuts', author: 'Taylor Swift', duration: '3:18', trackNumber: 10, isPopular: true, year: 2019 },
+    { title: 'London Boy', author: 'Taylor Swift', duration: '3:10', trackNumber: 11, isPopular: true, year: 2019 },
+    { title: 'Soon You\'ll Get Better', author: 'Taylor Swift, The Chicks', duration: '3:21', trackNumber: 12, isPopular: false, year: 2019 },
+    { title: 'False God', author: 'Taylor Swift', duration: '3:20', trackNumber: 13, isPopular: false, year: 2019 },
+    { title: 'You Need to Calm Down', author: 'Taylor Swift', duration: '2:51', trackNumber: 14, isPopular: true, year: 2019 },
     { title: 'Afterglow', author: 'Taylor Swift', duration: '3:43', trackNumber: 15, isPopular: false, year: 2019 },
-    { title: 'I Think He Knows', author: 'Taylor Swift', duration: '2:44', trackNumber: 16, isPopular: false, year: 2019 },
-    { title: 'Daylight', author: 'Taylor Swift', duration: '4:53', trackNumber: 17, isPopular: true, year: 2019 },
-    { title: 'Lover', author: 'Taylor Swift', duration: '3:41', trackNumber: 18, isPopular: true, year: 2019 }
+    { title: 'ME!', author: 'Taylor Swift, Brendon Urie', duration: '3:13', trackNumber: 16, isPopular: true, year: 2019 },
+    { title: 'It\'s Nice to Have a Friend', author: 'Taylor Swift', duration: '2:30', trackNumber: 17, isPopular: false, year: 2019 },
+    { title: 'Daylight', author: 'Taylor Swift', duration: '4:53', trackNumber: 18, isPopular: true, year: 2019 }
   ],
 
   'Folklore': [
     { title: 'The 1', author: 'Taylor Swift', duration: '3:30', trackNumber: 1, isPopular: true, year: 2020 },
     { title: 'Cardigan', author: 'Taylor Swift', duration: '3:59', trackNumber: 2, isPopular: true, year: 2020 },
-    { title: 'Exile', author: 'Taylor Swift', duration: '4:45', trackNumber: 3, isPopular: true, year: 2020 },
-    { title: 'My Tears Ricochet', author: 'Taylor Swift', duration: '4:36', trackNumber: 4, isPopular: false, year: 2020 },
-    { title: 'Mirrorball', author: 'Taylor Swift', duration: '3:29', trackNumber: 5, isPopular: true, year: 2020 },
-    { title: 'Seven', author: 'Taylor Swift', duration: '3:28', trackNumber: 6, isPopular: false, year: 2020 },
-    { title: 'August', author: 'Taylor Swift', duration: '4:21', trackNumber: 7, isPopular: true, year: 2020 },
-    { title: 'This Love', author: 'Taylor Swift', duration: '4:18', trackNumber: 8, isPopular: false, year: 2020 },
-    { title: 'Ivy', author: 'Taylor Swift', duration: '4:20', trackNumber: 9, isPopular: false, year: 2020 },
-    { title: 'Mad Woman', author: 'Taylor Swift', duration: '3:57', trackNumber: 10, isPopular: true, year: 2020 },
-    { title: 'Epiphany', author: 'Taylor Swift', duration: '4:49', trackNumber: 11, isPopular: false, year: 2020 },
-    { title: 'Betty', author: 'Taylor Swift', duration: '4:54', trackNumber: 12, isPopular: true, year: 2020 },
-    { title: 'Peace', author: 'Taylor Swift', duration: '3:43', trackNumber: 13, isPopular: false, year: 2020 },
-    { title: 'Hoax', author: 'Taylor Swift', duration: '3:40', trackNumber: 14, isPopular: false, year: 2020 },
-    { title: 'The 1', author: 'Taylor Swift', duration: '3:30', trackNumber: 15, isPopular: true, year: 2020 },
-    { title: 'Cardigan', author: 'Taylor Swift', duration: '3:59', trackNumber: 16, isPopular: true, year: 2020 }
+    { title: 'The Last Great American Dynasty', author: 'Taylor Swift', duration: '3:51', trackNumber: 3, isPopular: true, year: 2020 },
+    { title: 'Exile', author: 'Taylor Swift, Bon Iver', duration: '4:45', trackNumber: 4, isPopular: true, year: 2020 },
+    { title: 'My Tears Ricochet', author: 'Taylor Swift', duration: '4:15', trackNumber: 5, isPopular: false, year: 2020 },
+    { title: 'Mirrorball', author: 'Taylor Swift', duration: '3:29', trackNumber: 6, isPopular: true, year: 2020 },
+    { title: 'Seven', author: 'Taylor Swift', duration: '3:28', trackNumber: 7, isPopular: false, year: 2020 },
+    { title: 'August', author: 'Taylor Swift', duration: '4:21', trackNumber: 8, isPopular: true, year: 2020 },
+    { title: 'This Is Me Trying', author: 'Taylor Swift', duration: '3:15', trackNumber: 9, isPopular: false, year: 2020 },
+    { title: 'Illicit Affairs', author: 'Taylor Swift', duration: '3:10', trackNumber: 10, isPopular: false, year: 2020 },
+    { title: 'Invisible String', author: 'Taylor Swift', duration: '4:12', trackNumber: 11, isPopular: true, year: 2020 },
+    { title: 'Mad Woman', author: 'Taylor Swift', duration: '3:57', trackNumber: 12, isPopular: true, year: 2020 },
+    { title: 'Epiphany', author: 'Taylor Swift', duration: '4:49', trackNumber: 13, isPopular: false, year: 2020 },
+    { title: 'Betty', author: 'Taylor Swift', duration: '4:54', trackNumber: 14, isPopular: true, year: 2020 },
+    { title: 'Peace', author: 'Taylor Swift', duration: '3:54', trackNumber: 15, isPopular: false, year: 2020 },
+    { title: 'Hoax', author: 'Taylor Swift', duration: '3:40', trackNumber: 16, isPopular: false, year: 2020 }
   ],
 
   'Evermore': [
@@ -529,8 +529,29 @@ const songsData = {
   ]
 };
 
+const validateSeedData = () => {
+  for (const album of albumsData) {
+    const songs = songsData[album.title];
+    if (!songs) throw new Error(`No hay canciones definidas para ${album.title}`);
+
+    const normalizedTitles = songs.map((song) => song.title.trim().toLowerCase());
+    const trackNumbers = songs.map((song) => song.trackNumber);
+    const hasDuplicateTitles = new Set(normalizedTitles).size !== normalizedTitles.length;
+    const hasDuplicateTracks = new Set(trackNumbers).size !== trackNumbers.length;
+
+    if (hasDuplicateTitles || hasDuplicateTracks) {
+      throw new Error(`La semilla de ${album.title} contiene títulos o números de pista duplicados`);
+    }
+
+    if (songs.length !== album.totalTracks) {
+      throw new Error(`${album.title} declara ${album.totalTracks} pistas, pero contiene ${songs.length}`);
+    }
+  }
+};
+
 const seedDB = async () => {
   try {
+    validateSeedData();
     await connectDB();
     console.log('🎵 Creando o actualizando álbumes...');
     const albums = [];
