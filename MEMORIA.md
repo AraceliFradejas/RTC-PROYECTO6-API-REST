@@ -164,7 +164,7 @@ Como apoyo a la accesibilidad y al posicionamiento, el anexo emplea HTML semánt
 
 ### Experimento de aprendizaje con `llms.txt`
 
-Como parte de mi aprendizaje sobre GEO (*Generative Engine Optimization*), incorporé también [`frontend/llms.txt`](frontend/llms.txt). Me interesaba experimentar con un archivo de texto que ofreciera a sistemas basados en modelos de lenguaje un resumen estructurado del proyecto, sus modelos, relaciones y endpoints.
+Como parte de mi aprendizaje sobre GEO (*Generative Engine Optimization*), incorporé también [`public/llms.txt`](public/llms.txt). Me interesaba experimentar con un archivo de texto que ofreciera a sistemas basados en modelos de lenguaje un resumen estructurado del proyecto, sus modelos, relaciones y endpoints.
 
 Su inclusión es exploratoria: `llms.txt` no sustituye el README, la especificación OpenAPI, el sitemap ni las prácticas habituales de SEO, y su interpretación puede variar entre herramientas. En este proyecto se utiliza como ejercicio práctico para estudiar nuevas formas de hacer que la documentación técnica resulte comprensible y localizable tanto para personas como para asistentes de IA.
 

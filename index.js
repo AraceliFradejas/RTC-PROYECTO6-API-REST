@@ -17,7 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // ── Servir archivos estáticos del frontend ───────────────────
-app.use(express.static(path.join(__dirname, 'frontend')));
+// Vercel publica public/ directamente; Express la sirve durante el desarrollo local.
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ── Rutas API ─────────────────────────────────────────────────
 app.use('/api', async (req, res, next) => {
@@ -48,7 +49,7 @@ app.get('/api', (req, res) => {
 
 // ── Fallback: devolver index.html para rutas del frontend ─────
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // ── Manejador de errores global ───────────────────────────────

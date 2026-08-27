@@ -205,7 +205,7 @@ La aplicación estará en `http://localhost:3000` y la API en `http://localhost:
 
 ```text
 .
-├── frontend/
+├── public/                 # Frontend estático servido directamente por Vercel
 │   ├── css/
 │   │   ├── components/   # Estilos separados por área visual
 │   │   ├── base.css      # Reset, variables y utilidades globales
@@ -225,8 +225,7 @@ La aplicación estará en `http://localhost:3000` y la API en `http://localhost:
 │   ├── routes/
 │   └── seeds/seed.js
 ├── index.js
-├── package.json
-└── vercel.json
+└── package.json
 ```
 
 El punto de entrada solo compone las dependencias. Las tarjetas de álbum, resultados, modal, buscador, navegación y carrusel son módulos independientes; el acceso HTTP está centralizado en `services/api.js`. Esta separación permite modificar o probar cada responsabilidad sin convertir `app.js` en un archivo monolítico.
